@@ -1,4 +1,4 @@
-# CANTINAS UFGM 🥐
+# CANTINAS UFMG 🥐
 
 O **Cantinas UFMG** é uma aplicação web construída com React e ASP.NET Core que permite a visualização e avaliação em tempo real de cantinas/lanchonetes no campus Pampulha da UFMG. 
 
