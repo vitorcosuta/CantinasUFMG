@@ -135,3 +135,5 @@ _NCrunch*
 
 
 *.vsidx
+*.futdcache.v2
+*.v7.bin
