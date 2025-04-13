@@ -137,3 +137,50 @@ _NCrunch*
 *.vsidx
 *.futdcache.v2
 *.v7.bin
+
+# Ignorar a pasta 'node_modules' dentro de 'cantinasufmg'
+FrontEnd/cantinasufmg/node_modules/
+
+# Ignorar as pastas de build do React (geralmente 'build' ou 'dist')
+FrontEnd/cantinasufmg/build/
+FrontEnd/cantinasufmg/dist/
+
+# Ignorar arquivos de log do npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Ignorar arquivos de variáveis de ambiente
+FrontEnd/cantinasufmg/.env
+FrontEnd/cantinasufmg/.env.*
+
+# Ignorar caches de dependências e ferramentas
+FrontEnd/cantinasufmg/.cache/
+FrontEnd/cantinasufmg/.vite/
+FrontEnd/cantinasufmg/.next/
+
+# Ignorar arquivos de sistemas operacionais
+.DS_Store
+Thumbs.db
+
+# Ignorar arquivos de configuração de IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Ignorar cobertura de testes
+FrontEnd/cantinasufmg/coverage/
+
+# Ignorar lockfiles (mantenha apenas o de sua escolha, dependendo do gerenciador de pacotes)
+FrontEnd/cantinasufmg/package-lock.json
+FrontEnd/cantinasufmg/yarn.lock
+FrontEnd/cantinasufmg/pnpm-lock.yaml
+
+# Ignorar cache de ESLint ou Prettier
+FrontEnd/cantinasufmg/eslintcache
+FrontEnd/cantinasufmg/.prettiercache
+
+# Ignorar arquivos de preview do React DevTools
+FrontEnd/cantinasufmg/react-devtools-backend.js
