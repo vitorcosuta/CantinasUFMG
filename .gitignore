@@ -137,6 +137,9 @@ _NCrunch*
 *.vsidx
 *.futdcache.v2
 *.v7.bin
+*sqlite.db-shm
+*sqlite.db-wal
+
 
 # Ignorar a pasta 'node_modules' dentro de 'cantinasufmg'
 FrontEnd/cantinasufmg/node_modules/
@@ -169,6 +172,7 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+.vs/
 
 # Ignorar cobertura de testes
 FrontEnd/cantinasufmg/coverage/
@@ -184,3 +188,4 @@ FrontEnd/cantinasufmg/.prettiercache
 
 # Ignorar arquivos de preview do React DevTools
 FrontEnd/cantinasufmg/react-devtools-backend.js
+
