@@ -169,6 +169,7 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+.vs/
 
 # Ignorar cobertura de testes
 FrontEnd/cantinasufmg/coverage/
