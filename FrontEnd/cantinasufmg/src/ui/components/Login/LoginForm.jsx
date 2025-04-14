@@ -1,21 +1,20 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { CommonFormInput } from "../common/CommonFormInput";
-import { CommonPasswordFormInput } from "../common/CommonPasswordFormInput";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { CommonFormInput } from '../common/CommonFormInput';
+import { CommonPasswordFormInput } from '../common/CommonPasswordFormInput';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import CircularProgress from "@mui/material/CircularProgress";
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export const LoginForm = () => {
-
     const navigate = useNavigate();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [loginError, setLoginError] = useState('');
-        
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setLoading(true);
@@ -23,7 +22,7 @@ export const LoginForm = () => {
 
         const login = () => {
             setLoading(false);
-        }
+        };
 
         setTimeout(login, 1000);
     };
@@ -37,57 +36,72 @@ export const LoginForm = () => {
             component="form"
             onSubmit={handleSubmit}
             sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            width: '20vw',
-            backgroundColor: '#EEEEEE',
-            padding: 2,
-            borderRadius: 2,
-            mt: '10%'
-        }}
-        >
-        <Typography 
-            variant="h4"
-            sx={{
-                whiteSpace: 'pre-line',
-                color: '#262423',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+                width: '20vw',
+                backgroundColor: '#EEEEEE',
+                padding: 2,
+                borderRadius: 2,
+                mt: '10%',
             }}
         >
-        Autenticar-se
-        </Typography>
+            <Typography
+                variant="h4"
+                sx={{
+                    whiteSpace: 'pre-line',
+                    color: '#262423',
+                }}
+            >
+                Autenticar-se
+            </Typography>
 
-        <CommonFormInput
-            value={email}
-            label={'E-mail'}
-            placeholder={'Insira seu e-mail'}
-            onChange={handleEmailChange}
-        />
+            <CommonFormInput
+                value={email}
+                label={'E-mail'}
+                placeholder={'Insira seu e-mail'}
+                onChange={handleEmailChange}
+            />
 
-        <CommonPasswordFormInput 
-            value={password} 
-            onChange={handlePasswordChange}
-        />
+            <CommonPasswordFormInput
+                value={password}
+                onChange={handlePasswordChange}
+            />
 
-        {loginError && (
-            <Alert severity="error">Dados inválidos!</Alert>
-        )}
+            {loginError && <Alert severity="error">Dados inválidos!</Alert>}
 
-        <Button
-            sx={{
-            width: '100%',
-            mx: 'auto',
-            borderRadius: '999px',
-            fontWeight: 'bold',
-            paddingX: 3,
-            paddingY: 1,
-            backgroundColor: '#8E1616',
-            }}
-            type="submit" 
-            variant="contained"
-        >
-            {loading ? <CircularProgress size={24} color="inherit" /> : "Entrar"}
-        </Button>
+            <Typography
+                variant="body2"
+                sx={{
+                    color: '#262423',
+                    textDecoration: 'underline',
+                    cursor: 'pointer',
+                    textAlign: 'center',
+                }}
+                onClick={() => navigate('/cadastrarUsuario')}
+            >
+                Não possui conta? Cadastre-se!
+            </Typography>
+
+            <Button
+                sx={{
+                    width: '100%',
+                    mx: 'auto',
+                    borderRadius: '999px',
+                    fontWeight: 'bold',
+                    paddingX: 3,
+                    paddingY: 1,
+                    backgroundColor: '#8E1616',
+                }}
+                type="submit"
+                variant="contained"
+            >
+                {loading ? (
+                    <CircularProgress size={24} color="inherit" />
+                ) : (
+                    'Entrar'
+                )}
+            </Button>
         </Box>
     );
 };
