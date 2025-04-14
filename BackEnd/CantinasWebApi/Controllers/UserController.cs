@@ -26,6 +26,19 @@ namespace CantinasWebApi.Controllers
             return Ok(await _context.Users.ToListAsync());
         }
 
+        [HttpPost("AssertUser")]
+        public async Task<ActionResult<User>> AssertUser(User user)
+        {
+            var User = await _context.Users.FirstOrDefaultAsync(x => x.Username == user.Username);
+
+            if (User == default || User?.Password != user.Password)
+            {
+                return StatusCode(403);
+            }
+
+            return Ok(User);
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<User>>> GetAllUsers()
         {
