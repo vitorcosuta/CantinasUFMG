@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
+import { signInUser } from '../../../api/userService';
 
 export const LoginForm = () => {
     const navigate = useNavigate();
@@ -15,20 +16,31 @@ export const LoginForm = () => {
     const [loading, setLoading] = useState(false);
     const [loginError, setLoginError] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         setLoginError('');
 
-        const login = () => {
-            setLoading(false);
-        };
+        try {
+            const response = await signInUser({ email, password });
+            const user = response.data;
 
-        setTimeout(login, 1000);
+            localStorage.setItem('user', JSON.stringify(user));
+
+            setTimeout(() => {
+                setLoading(false);
+                navigate('/home', { state: { user } });
+            }, 2000);
+        } catch (error) {
+            error.response && error.response.status === 403
+                ? setLoginError('Usuário ou senha inválidos.')
+                : setLoginError('Erro ao autenticar. Tente novamente.');
+
+            setLoading(false);
+        }
     };
 
     const handleEmailChange = (e) => setEmail(e.target.value);
-
     const handlePasswordChange = (e) => setPassword(e.target.value);
 
     return (
@@ -46,13 +58,7 @@ export const LoginForm = () => {
                 mt: '10%',
             }}
         >
-            <Typography
-                variant="h4"
-                sx={{
-                    whiteSpace: 'pre-line',
-                    color: '#262423',
-                }}
-            >
+            <Typography variant="h4" sx={{ color: '#262423' }}>
                 Autenticar-se
             </Typography>
 
@@ -68,7 +74,7 @@ export const LoginForm = () => {
                 onChange={handlePasswordChange}
             />
 
-            {loginError && <Alert severity="error">Dados inválidos!</Alert>}
+            {loginError && <Alert severity="error">{loginError}</Alert>}
 
             <Typography
                 variant="body2"
