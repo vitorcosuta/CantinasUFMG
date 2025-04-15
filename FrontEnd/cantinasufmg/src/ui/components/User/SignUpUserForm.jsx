@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import { createUser } from '../../../api/userService';
 
-export const NewUserForm = () => {
+export const SignUpUserForm = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -69,7 +69,7 @@ export const NewUserForm = () => {
             await createUser({ username, email, password });
             setSuccessMessage('Usuário cadastrado com sucesso!');
             setTimeout(() => {
-                navigate('/home');
+                navigate('/');
             }, 2000);
         } catch (error) {
             console.error(error);

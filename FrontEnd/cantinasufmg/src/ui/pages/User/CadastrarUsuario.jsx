@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Box from '@mui/material/Box';
 import { CommonLogoHeader } from '../../components/common/CommonLogoHeader';
-import { NewUserForm } from '../../components/User/NewUserForm';
+import { SignUpUserForm } from '../../components/User/SignUpUserForm';
 
 export const CadastrarUsuario = () => {
     return (
@@ -16,7 +16,7 @@ export const CadastrarUsuario = () => {
                     height: 'calc(100vh - 120px)',
                 }}
             >
-                <NewUserForm />
+                <SignUpUserForm />
             </Box>
         </Fragment>
     );
