@@ -29,7 +29,7 @@ namespace CantinasWebApi.Controllers
         [HttpPost("AssertUser")]
         public async Task<ActionResult<User>> AssertUser(User user)
         {
-            var User = await _context.Users.FirstOrDefaultAsync(x => x.Username == user.Username);
+            var User = await _context.Users.FirstOrDefaultAsync(x => x.Email == user.Email);
 
             if (User == default || User?.Password != user.Password)
             {

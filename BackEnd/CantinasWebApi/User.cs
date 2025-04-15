@@ -11,5 +11,7 @@
         public string Email { get; set; } = string.Empty;
 
         public bool IsAdmin { get; set; }
+
+        public string Photo {  get; set; } = string.Empty;
     }
 }

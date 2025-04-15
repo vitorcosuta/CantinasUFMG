@@ -1,14 +1,13 @@
-import React, { Fragment, useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Box from "@mui/material/Box";
+import React, { Fragment, useState } from 'react';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Box from '@mui/material/Box';
 import MenuIcon from '@mui/icons-material/Menu';
-import { CommonIconButton } from "./CommonIconButton";
-import { CommonTemporaryDrawer } from "./CommonTemporaryDrawer";
-import { defaultUserIcon } from "../../../api/defaultUserIcon";
+import { CommonIconButton } from './CommonIconButton';
+import { CommonTemporaryDrawer } from './CommonTemporaryDrawer';
+import { defaultUserIcon } from '../../../api/defaultUserIcon';
 
 export const CommonDrawerHeader = ({ currentUser }) => {
-
     const [openDrawer, setOpenDrawer] = useState(false);
 
     const name = 'Teste';
@@ -21,9 +20,9 @@ export const CommonDrawerHeader = ({ currentUser }) => {
 
     return (
         <Fragment>
-            <AppBar 
+            <AppBar
                 position="static"
-                sx={{ 
+                sx={{
                     backgroundColor: '#EEEEEE',
                 }}
             >
@@ -42,12 +41,17 @@ export const CommonDrawerHeader = ({ currentUser }) => {
                         <CommonIconButton onClick={toggleDrawer}>
                             <MenuIcon />
                         </CommonIconButton>
-                        <Box component="img" src="/cantinas.png" alt="Logo" sx={{ height: 60 }} />
+                        <Box
+                            component="img"
+                            src="/logo.png"
+                            alt="Logo"
+                            sx={{ height: 60 }}
+                        />
                     </Box>
                 </Toolbar>
             </AppBar>
 
-            <CommonTemporaryDrawer 
+            <CommonTemporaryDrawer
                 userName={name}
                 userEmail={email}
                 userPhoto={photo}

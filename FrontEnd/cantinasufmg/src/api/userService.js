@@ -9,3 +9,7 @@ export const getUsers = () => {
 export const createUser = (user) => {
     return httpClient.post(route, user);
 };
+
+export const signInUser = (user) => {
+    return httpClient.post(`${route}/AssertUser`, user);
+};

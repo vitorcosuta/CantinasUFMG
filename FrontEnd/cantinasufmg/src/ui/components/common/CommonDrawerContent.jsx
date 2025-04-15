@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
-import Button from "@mui/material/Button";
+import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
@@ -10,10 +10,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { commonUserNavbarItems } from '../consts/navbarItems';
 import { CommonSnackbar } from './CommonSnackbar';
 import { CommonNavbarList } from './CommonNavbarList';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export const CommonDrawerContent = ({ userName, userEmail, userPhoto }) => {
-
     const navigate = useNavigate();
 
     const returnToHomepage = () => navigate('/', { replace: true });
@@ -27,27 +26,26 @@ export const CommonDrawerContent = ({ userName, userEmail, userPhoto }) => {
             returnToHomepage();
         };
 
-        setTimeout(logout, 500)
-    }
+        setTimeout(logout, 500);
+    };
 
     const handleClose = (event, reason) => {
-
-        if (reason === 'clickaway'){
+        if (reason === 'clickaway') {
             return;
         }
 
         setSnackbarOpen(false);
-    }
+    };
 
     return (
         <Fragment>
             <Toolbar sx={{ pt: 2, pb: 2 }}>
-                <Box 
-                    component="img" 
-                    src="/cantinas.png" 
-                    alt="Logo" 
-                    sx={{ 
-                        height: 100, 
+                <Box
+                    component="img"
+                    src="/logo.png"
+                    alt="Logo"
+                    sx={{
+                        height: 100,
                         cursor: 'pointer',
                         margin: 'auto',
                     }}
@@ -67,17 +65,17 @@ export const CommonDrawerContent = ({ userName, userEmail, userPhoto }) => {
                 }}
             >
                 <Box
-                sx={{
-                display: 'flex',
-                alignItems: 'center',
-                flexDirection: 'column',
-                padding: 2,
-                }}
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexDirection: 'column',
+                        padding: 2,
+                    }}
                 >
                     <Avatar
-                    src={userPhoto}
-                    alt={userName}
-                    sx={{ width: 64, height: 64, mb: 1 }}
+                        src={userPhoto}
+                        alt={userName}
+                        sx={{ width: 64, height: 64, mb: 1 }}
                     />
                     <Typography variant="subtitle1" fontWeight="bold">
                         {userName}
@@ -91,7 +89,7 @@ export const CommonDrawerContent = ({ userName, userEmail, userPhoto }) => {
                     <Divider>
                         <Chip label="Navegação" size="small" />
                     </Divider>
-                    
+
                     <CommonNavbarList navbarItems={commonUserNavbarItems} />
                 </Box>
             </Box>
@@ -115,15 +113,15 @@ export const CommonDrawerContent = ({ userName, userEmail, userPhoto }) => {
                         py: 2,
                         fontSize: '1.2rem',
                         fontWeight: 'bold',
-                        backgroundColor: '#8E1616'
+                        backgroundColor: '#8E1616',
                     }}
                 >
                     Sair
                 </Button>
 
                 <CommonSnackbar
-                    type='info'
-                    message='Logout efetuado com sucesso.'
+                    type="info"
+                    message="Logout efetuado com sucesso."
                     open={snackbarOpen}
                     onClose={handleClose}
                 />
