@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CommonFormInput } from '../common/CommonFormInput';
-import { CommonPasswordFormInput } from '../common/CommonPasswordFormInput';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
-import { createUser } from '../../../api/userService';
+import { createUser } from '../../../../api/userService';
+import { CommonFormInput } from '../../../components/common/CommonFormInput';
+import { CommonPasswordFormInput } from '../../../components/common/CommonPasswordFormInput';
 
-export const SignUpUserForm = () => {
+export const CadastrarUsuarioForm = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -69,12 +69,11 @@ export const SignUpUserForm = () => {
             await createUser({ username, email, password });
             setSuccessMessage('Usuário cadastrado com sucesso!');
             setTimeout(() => {
+                setLoading(false);
                 navigate('/');
             }, 2000);
-        } catch (error) {
-            console.error(error);
+        } catch {
             setSignUpError('Erro ao cadastrar usuário. Tente novamente.');
-        } finally {
             setLoading(false);
         }
     };
