@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { getUsers } from '../../../api/userService';
 import { useLocation } from 'react-router-dom';
+import { CommonDrawerHeader } from '../../components/common/CommonDrawerHeader';
 
 export const Home = () => {
     const [users, setUsers] = useState([]);
@@ -28,27 +29,31 @@ export const Home = () => {
     };
 
     return (
-        <div style={{ padding: '2rem' }}>
-            <h1>Bem-vindo, {user?.username}!</h1>
-            <h2>Lista de Usuários</h2>
-            {loading && <p>Carregando...</p>}
-            {error && <p>{error}</p>}
-            {!loading && !error && (
-                <>
-                    {users.length === 0 ? (
-                        <p>Nenhum usuário cadastrado.</p>
-                    ) : (
-                        <ul>
-                            {users.map((user) => (
-                                <li key={user.id}>
-                                    <strong>{user.username}</strong> —{' '}
-                                    {user.email}
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </>
-            )}
-        </div>
+        <Fragment>
+            <CommonDrawerHeader currentUser={user} />
+
+            <div style={{ padding: '2rem' }}>
+                <h1>Bem-vindo, {user?.username}!</h1>
+                <h2>Lista de Usuários</h2>
+                {loading && <p>Carregando...</p>}
+                {error && <p>{error}</p>}
+                {!loading && !error && (
+                    <>
+                        {users.length === 0 ? (
+                            <p>Nenhum usuário cadastrado.</p>
+                        ) : (
+                            <ul>
+                                {users.map((user) => (
+                                    <li key={user.id}>
+                                        <strong>{user.username}</strong> —{' '}
+                                        {user.email}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </>
+                )}
+            </div>
+        </Fragment>
     );
 };

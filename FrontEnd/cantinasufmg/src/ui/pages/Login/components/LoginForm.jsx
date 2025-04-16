@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CommonFormInput } from '../common/CommonFormInput';
-import { CommonPasswordFormInput } from '../common/CommonPasswordFormInput';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
-import { signInUser } from '../../../api/userService';
+import { signInUser } from '../../../../api/userService';
+import { CommonFormInput } from '../../../components/common/CommonFormInput';
+import { CommonPasswordFormInput } from '../../../components/common/CommonPasswordFormInput';
 
 export const LoginForm = () => {
     const navigate = useNavigate();

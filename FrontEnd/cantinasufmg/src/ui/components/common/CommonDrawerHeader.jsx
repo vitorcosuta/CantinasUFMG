@@ -5,13 +5,13 @@ import Box from '@mui/material/Box';
 import MenuIcon from '@mui/icons-material/Menu';
 import { CommonIconButton } from './CommonIconButton';
 import { CommonTemporaryDrawer } from './CommonTemporaryDrawer';
-import { defaultUserIcon } from '../../../api/defaultUserIcon';
+import { defaultUserIcon } from '../../../assets/defaultUserIcon';
 
 export const CommonDrawerHeader = ({ currentUser }) => {
     const [openDrawer, setOpenDrawer] = useState(false);
 
-    const name = 'Teste';
-    const email = 'teste@gmail.com';
+    const name = currentUser?.username || 'Usuário não cadastrado';
+    const email = currentUser?.email || '-';
     const photo = defaultUserIcon;
 
     const toggleDrawer = () => {
