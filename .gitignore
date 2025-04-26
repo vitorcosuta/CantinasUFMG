@@ -155,8 +155,8 @@ yarn-error.log*
 pnpm-debug.log*
 
 # Ignorar arquivos de variáveis de ambiente
-FrontEnd/cantinasufmg/.env
-FrontEnd/cantinasufmg/.env.*
+# FrontEnd/cantinasufmg/.env
+# FrontEnd/cantinasufmg/.env.*
 
 # Ignorar caches de dependências e ferramentas
 FrontEnd/cantinasufmg/.cache/

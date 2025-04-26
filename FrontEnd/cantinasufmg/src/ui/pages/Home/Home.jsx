@@ -1,59 +1,63 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { getUsers } from '../../../api/userService';
+import React, { Fragment } from 'react';
 import { useLocation } from 'react-router-dom';
 import { CommonDrawerHeader } from '../../components/common/CommonDrawerHeader';
+import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
+import { Box } from '@mui/material';
 
 export const Home = () => {
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
     const location = useLocation();
     const user =
         location.state?.user || JSON.parse(localStorage.getItem('user'));
 
-    useEffect(() => {
-        fetchUsers();
-    }, []);
-
-    const fetchUsers = () => {
-        getUsers()
-            .then((response) => {
-                setUsers(response.data);
-                setLoading(false);
-            })
-            .catch(() => {
-                setError('Erro ao carregar usuários');
-                setLoading(false);
-            });
-    };
-
     return (
         <Fragment>
-            <CommonDrawerHeader currentUser={user} />
+            <Box
+                sx={{
+                    position: 'relative',
+                    width: '100vw',
+                    height: '100vh',
+                }}
+            >
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        zIndex: 1,
+                        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',
+                    }}
+                >
+                    <CommonDrawerHeader currentUser={user} />
+                </Box>
 
-            <div style={{ padding: '2rem' }}>
-                <h1>Bem-vindo, {user?.username}!</h1>
-                <h2>Lista de Usuários</h2>
-                {loading && <p>Carregando...</p>}
-                {error && <p>{error}</p>}
-                {!loading && !error && (
-                    <>
-                        {users.length === 0 ? (
-                            <p>Nenhum usuário cadastrado.</p>
-                        ) : (
-                            <ul>
-                                {users.map((user) => (
-                                    <li key={user.id}>
-                                        <strong>{user.username}</strong> —{' '}
-                                        {user.email}
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </>
-                )}
-            </div>
+                <Box
+                    sx={{
+                        width: '100%',
+                        height: '100%',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        zIndex: 0,
+                    }}
+                >
+                    <APIProvider apiKey={API_KEY}>
+                        <Map
+                            defaultZoom={16}
+                            defaultCenter={{ lat: -19.87062, lng: -43.96675 }}
+                            disableDefaultUI={true}
+                            clickableIcons={false}
+                            style={{ width: '100%', height: '100%' }}
+                        >
+                            <Marker
+                                position={{ lat: -19.87062, lng: -43.96675 }}
+                            />
+                        </Map>
+                    </APIProvider>
+                </Box>
+            </Box>
         </Fragment>
     );
 };
