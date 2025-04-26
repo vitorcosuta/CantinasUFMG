@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { getProdutos } from '../../../api/produtoService';
-import { useLocation } from 'react-router-dom';
 import { CommonDrawerHeader } from '../../components/common/CommonDrawerHeader';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import { getUser } from '../../../api/userService';
 
 export const ProdutosHome = () => {
     const navigate = useNavigate();
@@ -11,9 +11,7 @@ export const ProdutosHome = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const location = useLocation();
-    const user =
-        location.state?.user || JSON.parse(localStorage.getItem('user'));
+    const user = getUser();
 
     useEffect(() => {
         fetchProducts();

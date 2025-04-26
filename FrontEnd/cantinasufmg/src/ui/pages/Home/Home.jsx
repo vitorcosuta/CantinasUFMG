@@ -1,15 +1,13 @@
 import React, { Fragment } from 'react';
-import { useLocation } from 'react-router-dom';
 import { CommonDrawerHeader } from '../../components/common/CommonDrawerHeader';
 import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
 import { Box } from '@mui/material';
+import { getUser } from '../../../api/userService';
 
 export const Home = () => {
     const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
-    const location = useLocation();
-    const user =
-        location.state?.user || JSON.parse(localStorage.getItem('user'));
+    const user = getUser();
 
     return (
         <Fragment>
