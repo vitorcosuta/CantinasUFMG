@@ -2,6 +2,7 @@ using CantinasWebApi.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Formats.Asn1;
+using DataTransferObjects;
 
 namespace CantinasWebApi.Controllers
 {
@@ -18,22 +19,51 @@ namespace CantinasWebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<Lanchonete>>> CreateLanchonete(Lanchonete lanchonete)
+        public async Task<ActionResult<List<dtoLanchonete>>> CreateLanchonete(Lanchonete Lanchonete)
         {
-            _context.Lanchonetes.Add(lanchonete);
+            _context.Lanchonetes.Add(Lanchonete);
             await _context.SaveChangesAsync();
 
-            return Ok(await _context.Lanchonetes.ToListAsync());
+            var Lanchonetes = await _context.Lanchonetes.ToListAsync();
+            var dtoLanchonetes = new List<dtoLanchonete>();
+            foreach (var lanchonete in Lanchonetes)
+            {
+                dtoLanchonetes.Add(new dtoLanchonete()
+                {
+                    Id = lanchonete.Id,
+                    posX = lanchonete.posX,
+                    posY = lanchonete.posY,
+                    idOwner = lanchonete.idOwner,
+
+                });
+            }
+
+
+            return Ok(dtoLanchonetes);
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Lanchonete>>> GetAllLanchonetes()
+        public async Task<ActionResult<List<dtoLanchonete>>> GetAllLanchonetes()
         {
-            return Ok(await _context.Lanchonetes.ToListAsync());
+            var Lanchonetes = await _context.Lanchonetes.ToListAsync();
+            var dtoLanchonetes = new List<dtoLanchonete>();
+            foreach (var lanchonete in Lanchonetes)
+            {
+                dtoLanchonetes.Add(new dtoLanchonete()
+                {
+                    Id = lanchonete.Id,
+                    posX = lanchonete.posX,
+                    posY = lanchonete.posY,
+                    idOwner = lanchonete.idOwner,
+
+                });
+            }
+
+            return Ok(dtoLanchonetes);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Lanchonete>> GetLanchonete(int id)
+        public async Task<ActionResult<dtoLanchonete>> GetLanchonete(int id)
         {
             var Lanchonete = await _context.Lanchonetes.FindAsync(id);
 
@@ -41,7 +71,17 @@ namespace CantinasWebApi.Controllers
             {
                 return BadRequest("Lanchonete does not exist.");
             }
-            return Ok(Lanchonete);
+
+            var dtoLanchonete = new dtoLanchonete()
+            {
+                Id = Lanchonete.Id,
+                posX = Lanchonete.posX,
+                posY = Lanchonete.posY,
+                idOwner = Lanchonete.idOwner,
+
+            };
+
+            return Ok(dtoLanchonete);
         }
     }
 }
