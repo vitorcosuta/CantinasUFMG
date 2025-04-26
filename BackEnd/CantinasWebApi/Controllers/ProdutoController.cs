@@ -2,6 +2,7 @@ using CantinasWebApi.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Formats.Asn1;
+using DataTransferObjects;
 
 namespace CantinasWebApi.Controllers
 {
@@ -18,22 +19,46 @@ namespace CantinasWebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<Produto>>> CreateProduto(Produto Produto)
+        public async Task<ActionResult<List<dtoProduto>>> CreateProduto(Produto Produto)
         {
             _context.Produtos.Add(Produto);
             await _context.SaveChangesAsync();
 
-            return Ok(await _context.Produtos.ToListAsync());
+            var Produtos = await _context.Produtos.ToListAsync();
+            var dtoProdutos = new List<dtoProduto>();
+            foreach(var produto in Produtos)
+            {
+                dtoProdutos.Add(new dtoProduto()
+                {
+                    Id = produto.Id,
+                    Nome = produto.Nome,
+                    Descricao = produto.Descricao,
+                });
+            }
+
+            return Ok(dtoProdutos);
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Produto>>> GetAllProdutos()
+        public async Task<ActionResult<List<dtoProduto>>> GetAllProdutos()
         {
-            return Ok(await _context.Produtos.ToListAsync());
+            var Produtos = await _context.Produtos.ToListAsync();
+            var dtoProdutos = new List<dtoProduto>();
+            foreach (var produto in Produtos)
+            {
+                dtoProdutos.Add(new dtoProduto()
+                {
+                    Id = produto.Id,
+                    Nome = produto.Nome,
+                    Descricao = produto.Descricao,
+                });
+            }
+
+            return Ok(dtoProdutos);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Produto>> GetProduto(int id)
+        public async Task<ActionResult<dtoProduto>> GetProduto(int id)
         {
             var Produto = await _context.Produtos.FindAsync(id);
 
@@ -41,7 +66,15 @@ namespace CantinasWebApi.Controllers
             {
                 return BadRequest("Produto does not exist.");
             }
-            return Ok(Produto);
+
+            var dtoProduto = new dtoProduto()
+            {
+                Id = Produto.Id,
+                Nome = Produto.Nome,
+                Descricao = Produto.Descricao,
+            };
+            
+            return Ok(dtoProduto);
         }
     }
 }
