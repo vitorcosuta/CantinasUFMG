@@ -6,6 +6,7 @@ import { CadastrarUsuario } from '../ui/pages/User/CadastrarUsuario';
 import { ProdutosRoutes } from './ProdutosRoutes';
 import { PrivateRoute } from './PrivateRoute';
 import { ROUTES } from './Routes';
+import { CantinasRoutes } from './CantinasRoutes';
 
 const AppRoutes = () => (
     <Routes>
@@ -17,7 +18,11 @@ const AppRoutes = () => (
         />
         <Route
             path={`${ROUTES.PRODUTOS}/*`}
-            element={<PrivateRoute element={<ProdutosRoutes />} />}
+            element={<PrivateRoute element={<ProdutosRoutes />} requireAdmin />}
+        />
+        <Route
+            path={`${ROUTES.CANTINAS}/*`}
+            element={<PrivateRoute element={<CantinasRoutes />} requireAdmin />}
         />
     </Routes>
 );

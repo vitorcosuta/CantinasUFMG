@@ -6,4 +6,6 @@ export const ROUTES = {
     PRODUTOS_HOME: '/',
     PRODUTOS_CADASTRAR: '/cadastrar',
     CANTINAS: '/cantinas',
+    CANTINAS_HOME: '/',
+    CANTINAS_CADASTRAR: '/cadastrar',
 };
