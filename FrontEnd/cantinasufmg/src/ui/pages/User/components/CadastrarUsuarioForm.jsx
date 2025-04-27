@@ -96,7 +96,7 @@ export const CadastrarUsuarioForm = () => {
                 textAlign="center"
                 color="#262423"
             >
-                Cadastrar usuário
+                Cadastrar Usuário
             </Typography>
 
             <CommonFormInput
