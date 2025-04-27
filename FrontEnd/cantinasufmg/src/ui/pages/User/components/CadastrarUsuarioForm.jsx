@@ -86,19 +86,15 @@ export const CadastrarUsuarioForm = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 2,
-                width: '20vw',
-                backgroundColor: '#EEEEEE',
-                padding: 2,
-                borderRadius: 2,
-                mt: '10%',
+                width: '100%',
+                maxWidth: 300,
             }}
         >
             <Typography
-                variant="h4"
-                sx={{
-                    whiteSpace: 'pre-line',
-                    color: '#262423',
-                }}
+                variant="h5"
+                fontWeight="bold"
+                textAlign="center"
+                color="#262423"
             >
                 Cadastrar usuário
             </Typography>

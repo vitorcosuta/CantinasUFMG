@@ -51,15 +51,17 @@ export const LoginForm = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 2,
-                width: '20vw',
-                backgroundColor: '#EEEEEE',
-                padding: 2,
-                borderRadius: 2,
-                mt: '10%',
+                width: '100%',
+                maxWidth: 300,
             }}
         >
-            <Typography variant="h4" sx={{ color: '#262423' }}>
-                Autenticar-se
+            <Typography
+                variant="h5"
+                fontWeight="bold"
+                textAlign="center"
+                color="#262423"
+            >
+                Bem vindo!
             </Typography>
 
             <CommonFormInput
@@ -92,11 +94,9 @@ export const LoginForm = () => {
             <Button
                 sx={{
                     width: '100%',
-                    mx: 'auto',
                     borderRadius: '999px',
                     fontWeight: 'bold',
-                    paddingX: 3,
-                    paddingY: 1,
+                    py: 1.5,
                     backgroundColor: '#8E1616',
                 }}
                 type="submit"

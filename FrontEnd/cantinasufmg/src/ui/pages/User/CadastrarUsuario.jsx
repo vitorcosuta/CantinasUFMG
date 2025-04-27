@@ -1,23 +1,44 @@
-import React, { Fragment } from 'react';
-import Box from '@mui/material/Box';
-import { CommonLogoHeader } from '../../components/common/CommonLogoHeader';
+import React from 'react';
+import { Box, Paper } from '@mui/material';
 import { CadastrarUsuarioForm } from './components/CadastrarUsuarioForm';
 
 export const CadastrarUsuario = () => {
     return (
-        <Fragment>
-            <CommonLogoHeader />
-            <Box
+        <Box
+            sx={{
+                minHeight: '100vh',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#EEEEEE',
+            }}
+        >
+            <Paper
+                elevation={6}
                 sx={{
                     display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start',
+                    width: { xs: '90%', md: '70%', lg: '60%' },
+                    maxWidth: 600,
+                    height: { xs: 'auto', md: '70vh' },
+                    borderRadius: 3,
+                    overflow: 'hidden',
+                    justifyContent: 'center',
                     alignItems: 'center',
-                    height: 'calc(100vh - 120px)',
                 }}
             >
-                <CadastrarUsuarioForm />
-            </Box>
-        </Fragment>
+                <Box
+                    sx={{
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: '#ffffff',
+                        p: 4,
+                    }}
+                >
+                    <CadastrarUsuarioForm />
+                </Box>
+            </Paper>
+        </Box>
     );
 };
