@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Paper } from '@mui/material';
 import { LoginForm } from './components/LoginForm';
+import { removeUser } from '../../../api/userService';
 
 export const Login = () => {
+    useEffect(() => {
+        removeUser();
+    }, []);
+
     return (
         <Box
             sx={{

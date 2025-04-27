@@ -26,7 +26,11 @@ export const isAdmin = () => {
     return user && user.isAdmin;
 };
 
-export const logout = () => {
+export const removeUser = () => {
     localStorage.removeItem('user');
+};
+
+export const logout = () => {
+    removeUser();
     window.location.href = '/';
 };

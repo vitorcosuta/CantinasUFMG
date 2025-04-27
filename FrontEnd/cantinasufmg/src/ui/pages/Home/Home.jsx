@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
-import { CommonDrawerHeader } from '../../components/common/CommonDrawerHeader';
 import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
 import { Box } from '@mui/material';
-import { getUser } from '../../../api/userService';
+// import { getUser } from '../../../api/userService';
+import { CommonHeader } from '../../components/common/CommonHeader';
 
 export const Home = () => {
     const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
-    const user = getUser();
+    // const user = getUser();
 
     return (
         <Fragment>
@@ -28,7 +28,7 @@ export const Home = () => {
                         boxShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',
                     }}
                 >
-                    <CommonDrawerHeader currentUser={user} />
+                    <CommonHeader />
                 </Box>
 
                 <Box

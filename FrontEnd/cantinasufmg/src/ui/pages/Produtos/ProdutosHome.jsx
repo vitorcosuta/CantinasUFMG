@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { getProdutos } from '../../../api/produtoService';
-import { CommonDrawerHeader } from '../../components/common/CommonDrawerHeader';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import { getUser } from '../../../api/userService';
+// import { getUser } from '../../../api/userService';
+import { CommonHeader } from '../../components/common/CommonHeader';
 
 export const ProdutosHome = () => {
     const navigate = useNavigate();
@@ -11,7 +11,7 @@ export const ProdutosHome = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const user = getUser();
+    // const user = getUser();
 
     useEffect(() => {
         fetchProducts();
@@ -31,7 +31,7 @@ export const ProdutosHome = () => {
 
     return (
         <Fragment>
-            <CommonDrawerHeader currentUser={user} />
+            <CommonHeader />
 
             <div style={{ padding: '2rem' }}>
                 <h2>Lista de Produtos</h2>

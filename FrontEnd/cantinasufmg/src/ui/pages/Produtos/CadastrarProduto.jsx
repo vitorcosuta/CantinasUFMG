@@ -1,17 +1,12 @@
 import React, { Fragment } from 'react';
 import Box from '@mui/material/Box';
 import { CadastrarProdutoForm } from './components/CadastrarProdutoForm';
-import { CommonDrawerHeader } from '../../components/common/CommonDrawerHeader';
-import { useLocation } from 'react-router-dom';
+import { CommonHeader } from '../../components/common/CommonHeader';
 
 export const CadastrarProduto = () => {
-    const location = useLocation();
-    const user =
-        location.state?.user || JSON.parse(localStorage.getItem('user'));
-
     return (
         <Fragment>
-            <CommonDrawerHeader currentUser={user} />
+            <CommonHeader />
             <Box
                 sx={{
                     display: 'flex',
