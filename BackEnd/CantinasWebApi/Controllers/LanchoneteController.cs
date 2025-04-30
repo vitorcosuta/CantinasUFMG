@@ -31,6 +31,7 @@ namespace CantinasWebApi.Controllers
                 dtoLanchonetes.Add(new dtoLanchonete()
                 {
                     Id = lanchonete.Id,
+                    Nome = lanchonete.Nome,
                     posX = lanchonete.posX,
                     posY = lanchonete.posY,
                     idOwner = lanchonete.idOwner,
@@ -52,6 +53,7 @@ namespace CantinasWebApi.Controllers
                 dtoLanchonetes.Add(new dtoLanchonete()
                 {
                     Id = lanchonete.Id,
+                    Nome = lanchonete.Nome,
                     posX = lanchonete.posX,
                     posY = lanchonete.posY,
                     idOwner = lanchonete.idOwner,
@@ -75,6 +77,7 @@ namespace CantinasWebApi.Controllers
             var dtoLanchonete = new dtoLanchonete()
             {
                 Id = Lanchonete.Id,
+                Nome = Lanchonete.Nome,
                 posX = Lanchonete.posX,
                 posY = Lanchonete.posY,
                 idOwner = Lanchonete.idOwner,
