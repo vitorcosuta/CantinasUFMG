@@ -8,8 +8,12 @@
         public double posY { get; set; }
         public int idOwner { get; set; }
 
-        public dtoUser? Owner { get; set; }
 
+        //Propriedades adicionais
+        public double? AvaliacaoMedia { get; set; }
+
+        public List<dtoAvaliacao>? Avaliacoes { get; set; }
+        public dtoUser? Owner { get; set; }
         public List<dtoProduto>? Produtos { get; set; }
     }
 }

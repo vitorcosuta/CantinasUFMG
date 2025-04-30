@@ -74,6 +74,22 @@ namespace CantinasWebApi.Controllers
                 return BadRequest("Lanchonete does not exist.");
             }
 
+            var dtoAvaliacoes = new List<dtoAvaliacao>();
+            var Avaliacoes = await _context.Avaliacoes.Where(x => x.LanchoneteId == id).ToListAsync();
+
+            foreach(var avaliacao in Avaliacoes)
+            {
+                dtoAvaliacoes.Add(new dtoAvaliacao()
+                {
+                    Id=avaliacao.Id,
+                    UserId = avaliacao.UserId,
+                    LanchoneteId = avaliacao.LanchoneteId,
+                    Nota = avaliacao.Nota,
+                });
+            }
+
+            double? AvaliacaoMedia = dtoAvaliacoes.Average(x => x.Nota);
+
             var dtoLanchonete = new dtoLanchonete()
             {
                 Id = Lanchonete.Id,
@@ -81,7 +97,8 @@ namespace CantinasWebApi.Controllers
                 posX = Lanchonete.posX,
                 posY = Lanchonete.posY,
                 idOwner = Lanchonete.idOwner,
-
+                AvaliacaoMedia = AvaliacaoMedia,
+                Avaliacoes = dtoAvaliacoes,
             };
 
             return Ok(dtoLanchonete);

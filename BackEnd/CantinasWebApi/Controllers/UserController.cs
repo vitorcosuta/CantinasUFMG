@@ -19,12 +19,32 @@ namespace CantinasWebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<dtoUser>>> CreateUser(User user)
+        public async Task<ActionResult<dtoUser>> CreateUser(User user)
         {
+            
+            if(await _context.Users.AnyAsync(x => x.Username == user.Username || x.Email == user.Email))
+            {
+                return BadRequest("Usuário ou e-mail já existente.");
+            }
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return Ok(await _context.Users.ToListAsync());
+            var User = await _context.Users.FirstOrDefaultAsync(x => x.Email == user.Email);
+
+            if(User == null)
+            {
+                return NotFound("Erro ao criar usuário");
+            }
+
+            return Ok(new dtoUser()
+            {
+                Id = User.Id,
+                Email = User.Email,
+                Username = User.Username,
+                IsAdmin = User.IsAdmin,
+                Photo = User.Photo,
+            });
         }
 
         [HttpPost("AssertUser")]
@@ -36,6 +56,29 @@ namespace CantinasWebApi.Controllers
             {
                 return StatusCode(403);
             }
+
+            return Ok(new dtoUser()
+            {
+                Id = User.Id,
+                Email = User.Email,
+                Username = User.Username,
+                IsAdmin = User.IsAdmin,
+                Photo = User.Photo,
+            });
+        }
+
+        [HttpPost("SetAdmin")]
+        public async Task<ActionResult<dtoUser>> SetAdmin(User user)
+        {
+            var User = await _context.Users.FindAsync(user.Id);
+
+            if (User == default)
+            {
+                return NotFound("Usuário não encontrado.");
+            }
+
+            User.IsAdmin = true;
+            await _context.SaveChangesAsync();
 
             return Ok(new dtoUser()
             {
@@ -78,6 +121,21 @@ namespace CantinasWebApi.Controllers
                 return BadRequest("User does not exist.");
             }
 
+            var IdLanchonetesFavoritas = await _context.Favoritos.Where(x => x.UserId == id).Select(x => x.LanchoneteId).ToListAsync();
+
+            var lanchonetes = await _context.Lanchonetes.Where(x => IdLanchonetesFavoritas.Contains(x.Id)).ToListAsync();
+            var dtoLanchonetes = new List<dtoLanchonete>();
+            foreach(var lanchonete in lanchonetes)
+            {
+                dtoLanchonetes.Add(new dtoLanchonete() 
+                {
+                    Id = lanchonete.Id,
+                    Nome = lanchonete.Nome,
+                    posX = lanchonete.posX,
+                    posY = lanchonete.posY,
+                });
+            }
+
             var dtoUser = new dtoUser()
             {
                 Id = User.Id,
@@ -85,6 +143,7 @@ namespace CantinasWebApi.Controllers
                 Username= User.Username,
                 IsAdmin = User.IsAdmin,
                 Photo = User.Photo,
+                LanchonetesFavoritas = dtoLanchonetes,
             };
 
             return Ok(dtoUser);
