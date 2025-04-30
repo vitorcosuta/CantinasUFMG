@@ -74,6 +74,7 @@ namespace CantinasWebApi.Controllers
                 return BadRequest("Lanchonete does not exist.");
             }
 
+            //Obter Lista de avaliacoes da lanchonete
             var dtoAvaliacoes = new List<dtoAvaliacao>();
             var Avaliacoes = await _context.Avaliacoes.Where(x => x.LanchoneteId == id).ToListAsync();
 
@@ -88,7 +89,24 @@ namespace CantinasWebApi.Controllers
                 });
             }
 
-            double? AvaliacaoMedia = dtoAvaliacoes.Average(x => x.Nota);
+            //Calcular media de avaliação da lanchonete
+            double? AvaliacaoMedia = dtoAvaliacoes?.Count > 0 ? dtoAvaliacoes?.Select(x => x.Nota)?.Average() : 0;
+
+            //Obter lista de produtos na lanchonete
+            var ProdutosLanchonete = await _context.ProdutosLanchonete.Where(x => x.IdLanchonete == id).ToListAsync();
+            var PrecoProdutos = ProdutosLanchonete.ToDictionary(x => x.IdProduto, y => y.Preco);
+            var produtos = await _context.Produtos.Where(x => PrecoProdutos.Keys.Contains(x.Id)).ToListAsync();
+            var dtoProdutos = new List<dtoProduto>();
+            foreach(var produto in produtos)
+            {
+                dtoProdutos.Add(new dtoProduto()
+                {
+                    Id = produto.Id,
+                    Nome = produto.Nome,
+                    Descricao = produto.Descricao,
+                    Preco = PrecoProdutos[produto.Id],
+                });
+            }
 
             var dtoLanchonete = new dtoLanchonete()
             {
@@ -99,6 +117,7 @@ namespace CantinasWebApi.Controllers
                 idOwner = Lanchonete.idOwner,
                 AvaliacaoMedia = AvaliacaoMedia,
                 Avaliacoes = dtoAvaliacoes,
+                Produtos = dtoProdutos,
             };
 
             return Ok(dtoLanchonete);
