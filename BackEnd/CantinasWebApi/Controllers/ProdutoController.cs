@@ -76,5 +76,23 @@ namespace CantinasWebApi.Controllers
             
             return Ok(dtoProduto);
         }
+
+        [HttpGet("GetProdutoByName/{name}")]
+        public async Task<ActionResult<List<dtoProduto>>> GetProdutosByName(string name)
+        {
+            var Produtos = await _context.Produtos.Where(x => x.Nome.Contains(name)).ToListAsync();
+            var dtoProdutos = new List<dtoProduto>();
+            foreach (var produto in Produtos)
+            {
+                dtoProdutos.Add(new dtoProduto()
+                {
+                    Id = produto.Id,
+                    Nome = produto.Nome,
+                    Descricao = produto.Descricao,
+                });
+            }
+
+            return Ok(dtoProdutos);
+        }
     }
 }

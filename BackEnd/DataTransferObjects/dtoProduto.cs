@@ -6,6 +6,8 @@
         public string Nome { get; set; } = string.Empty;
         public string Descricao { get; set; } = string.Empty;
 
+        //Propriedades adicionais
+        public double? Preco {  get; set; }
         public List<dtoLanchonete>? Lanchonetes { get; set; }
     }
 }

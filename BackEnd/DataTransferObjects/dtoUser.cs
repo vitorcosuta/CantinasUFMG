@@ -16,5 +16,8 @@ namespace DataTransferObjects
 
         public string Photo { get; set; } = string.Empty;
 
+
+        //Propriedades adicionais
+        public List<dtoLanchonete>? LanchonetesFavoritas { get; set; }
     }
 }
