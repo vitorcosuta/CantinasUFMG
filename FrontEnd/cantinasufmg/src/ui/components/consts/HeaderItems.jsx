@@ -10,17 +10,20 @@ export const CommonHeaderItems = [
         icon: <StoreIcon />,
         label: 'Cantinas',
         route: ROUTES.CANTINAS,
+        adminOnly: true,
     },
     {
         id: 1,
         icon: <MapIcon />,
         label: 'Mapa',
         route: ROUTES.HOME,
+        adminOnly: false,
     },
     {
         id: 2,
         icon: <FastfoodIcon />,
         label: 'Produtos',
         route: ROUTES.PRODUTOS,
+        adminOnly: true,
     },
 ];

@@ -1,15 +1,20 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CommonHeaderItems } from '../consts/HeaderItens';
+import { CommonHeaderItems } from '../consts/HeaderItems';
+import { isAdmin } from '../../../api/userService';
 
 export const CommonHeaderItemsList = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
+    const filteredItems = CommonHeaderItems.filter(
+        (item) => !item.adminOnly || isAdmin()
+    );
+
     return (
         <>
-            {CommonHeaderItems.map((item) => {
+            {filteredItems.map((item) => {
                 const isActive = location.pathname.startsWith(item.route);
 
                 return (
