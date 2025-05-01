@@ -40,7 +40,7 @@ export const CadastrarUsuario = () => {
                             position: 'absolute',
                             top: 16,
                             left: 16,
-                            color: '#EEEEEE',
+                            color: '#888',
                             backgroundColor: 'transparent',
                             '&:hover': {
                                 backgroundColor: 'transparent',
