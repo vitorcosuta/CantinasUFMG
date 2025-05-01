@@ -8,6 +8,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { createUser } from '../../../../api/userService';
 import { CommonFormInput } from '../../../components/common/CommonFormInput';
 import { CommonPasswordFormInput } from '../../../components/common/CommonPasswordFormInput';
+import { ROUTES } from '../../../../routes/Routes';
 
 export const CadastrarUsuarioForm = () => {
     const navigate = useNavigate();
@@ -22,6 +23,7 @@ export const CadastrarUsuarioForm = () => {
         username: false,
         email: false,
         emailInvalid: false,
+        emailAlreadyExists: false,
         password: false,
     });
 
@@ -46,6 +48,7 @@ export const CadastrarUsuarioForm = () => {
             username: isUsernameEmpty,
             email: isEmailEmpty,
             emailInvalid: isEmailInvalid,
+            emailAlreadyExists: false,
             password: isPasswordEmpty,
         };
 
@@ -59,6 +62,11 @@ export const CadastrarUsuarioForm = () => {
         setSignUpError('');
         setSuccessMessage('');
 
+        setErrors((prev) => ({
+            ...prev,
+            emailAlreadyExists: false,
+        }));
+
         if (!validateFields()) {
             return;
         }
@@ -70,10 +78,20 @@ export const CadastrarUsuarioForm = () => {
             setSuccessMessage('Usuário cadastrado com sucesso!');
             setTimeout(() => {
                 setLoading(false);
-                navigate('/');
+                navigate(ROUTES.LOGIN);
             }, 2000);
-        } catch {
-            setSignUpError('Erro ao cadastrar usuário. Tente novamente.');
+        } catch (error) {
+            if (error.response && error.response.status === 400) {
+                setSignUpError('Usuário já existente!');
+                setErrors((prev) => ({
+                    ...prev,
+                    email: false,
+                    emailInvalid: false,
+                    emailAlreadyExists: true,
+                }));
+            } else {
+                setSignUpError('Erro ao cadastrar usuário. Tente novamente.');
+            }
             setLoading(false);
         }
     };
@@ -113,7 +131,11 @@ export const CadastrarUsuarioForm = () => {
                 label="E-mail"
                 placeholder="Insira seu e-mail"
                 onChange={(e) => setEmail(e.target.value)}
-                error={errors.email || errors.emailInvalid}
+                error={
+                    errors.email ||
+                    errors.emailInvalid ||
+                    errors.emailAlreadyExists
+                }
                 helperText={getEmailHelperText()}
             />
 

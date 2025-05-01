@@ -8,6 +8,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { signInUser } from '../../../../api/userService';
 import { CommonFormInput } from '../../../components/common/CommonFormInput';
 import { CommonPasswordFormInput } from '../../../components/common/CommonPasswordFormInput';
+import { ROUTES } from '../../../../routes/Routes';
 
 export const LoginForm = () => {
     const navigate = useNavigate();
@@ -29,7 +30,7 @@ export const LoginForm = () => {
 
             setTimeout(() => {
                 setLoading(false);
-                navigate('/home', { state: { user } });
+                navigate(ROUTES.HOME, { state: { user } });
             }, 2000);
         } catch (error) {
             error.response && error.response.status === 403
@@ -86,7 +87,7 @@ export const LoginForm = () => {
                     cursor: 'pointer',
                     textAlign: 'center',
                 }}
-                onClick={() => navigate('/cadastrarUsuario')}
+                onClick={() => navigate(ROUTES.CADASTRAR_USUARIO)}
             >
                 Não possui conta? Cadastre-se!
             </Typography>

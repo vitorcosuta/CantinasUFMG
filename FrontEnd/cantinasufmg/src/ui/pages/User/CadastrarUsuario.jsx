@@ -1,8 +1,13 @@
 import React from 'react';
-import { Box, Paper } from '@mui/material';
+import { Box, Paper, IconButton, Tooltip } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate } from 'react-router-dom';
 import { CadastrarUsuarioForm } from './components/CadastrarUsuarioForm';
+import { ROUTES } from '../../../routes/Routes';
 
 export const CadastrarUsuario = () => {
+    const navigate = useNavigate();
+
     return (
         <Box
             sx={{
@@ -16,7 +21,9 @@ export const CadastrarUsuario = () => {
             <Paper
                 elevation={6}
                 sx={{
+                    position: 'relative',
                     display: 'flex',
+                    flexDirection: 'column',
                     width: { xs: '90%', md: '70%', lg: '60%' },
                     maxWidth: 600,
                     height: { xs: 'auto', md: '70vh' },
@@ -26,6 +33,24 @@ export const CadastrarUsuario = () => {
                     alignItems: 'center',
                 }}
             >
+                <Tooltip title="Voltar para o login">
+                    <IconButton
+                        onClick={() => navigate(ROUTES.LOGIN)}
+                        sx={{
+                            position: 'absolute',
+                            top: 16,
+                            left: 16,
+                            color: '#EEEEEE',
+                            backgroundColor: 'transparent',
+                            '&:hover': {
+                                backgroundColor: 'transparent',
+                            },
+                        }}
+                    >
+                        <ArrowBackIcon />
+                    </IconButton>
+                </Tooltip>
+
                 <Box
                     sx={{
                         width: '100%',

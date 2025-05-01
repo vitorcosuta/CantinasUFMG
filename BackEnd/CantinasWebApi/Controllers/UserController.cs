@@ -22,9 +22,9 @@ namespace CantinasWebApi.Controllers
         public async Task<ActionResult<dtoUser>> CreateUser(User user)
         {
             
-            if(await _context.Users.AnyAsync(x => x.Username == user.Username || x.Email == user.Email))
+            if(await _context.Users.AnyAsync(x => x.Email == user.Email))
             {
-                return BadRequest("Usuário ou e-mail já existente.");
+                return BadRequest("Usuário já existente.");
             }
 
             _context.Users.Add(user);
