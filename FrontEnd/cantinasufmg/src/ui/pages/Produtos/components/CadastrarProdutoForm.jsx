@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import { createProduto } from '../../../../api/produtoService';
 import { CommonFormInput } from '../../../components/common/CommonFormInput';
+import { ROUTES } from '../../../../routes/Routes';
 
 export const CadastrarProdutoForm = () => {
     const navigate = useNavigate();
@@ -48,7 +49,7 @@ export const CadastrarProdutoForm = () => {
             setSuccessMessage('Produto cadastrado com sucesso!');
             setTimeout(() => {
                 setLoading(false);
-                navigate('/produtos');
+                navigate(`${ROUTES.PRODUTOS}`);
             }, 2000);
         } catch {
             setError('Erro ao cadastrar produto. Tente novamente.');

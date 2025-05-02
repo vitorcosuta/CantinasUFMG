@@ -3,6 +3,7 @@ import { CommonHeader } from '../../components/common/CommonHeader';
 import { Box, Button, Paper, Typography } from '@mui/material';
 import { CantinasList } from './components/CantinasList';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../../routes/Routes';
 
 export const CantinasHome = () => {
     const navigate = useNavigate();
@@ -105,7 +106,9 @@ export const CantinasHome = () => {
                                     }}
                                     variant="contained"
                                     onClick={() =>
-                                        navigate('/cantinas/cadastrar')
+                                        navigate(
+                                            `${ROUTES.CANTINAS}${ROUTES.CANTINAS_CADASTRAR}`
+                                        )
                                     }
                                 >
                                     Adicionar nova cantina
