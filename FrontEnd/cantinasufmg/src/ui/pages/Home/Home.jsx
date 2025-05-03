@@ -1,21 +1,29 @@
-import React, { Fragment } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { Box } from '@mui/material';
-// import { getUser } from '../../../api/userService';
 import { CommonHeader } from '../../components/common/CommonHeader';
 import { GoogleMapsView } from '../../components/maps/GoogleMapsView';
+import { getCantinas } from '../../../api/cantinaService';
+import { CantinaModal } from '../../modals/CantinaModal';
 
 export const Home = () => {
-    // const user = getUser();
+    const [cantinas, setCantinas] = useState([]);
+    const [selectedCantina, setSelectedCantina] = useState(null);
+
+    useEffect(() => {
+        const fetchCantinas = async () => {
+            try {
+                const response = await getCantinas();
+                setCantinas(response.data);
+            } catch (error) {
+                console.error('Erro ao buscar cantinas', error);
+            }
+        };
+        fetchCantinas();
+    }, []);
 
     return (
         <Fragment>
-            <Box
-                sx={{
-                    position: 'relative',
-                    width: '100vw',
-                    height: '100vh',
-                }}
-            >
+            <Box sx={{ position: 'relative', width: '100vw', height: '100vh' }}>
                 <Box
                     sx={{
                         position: 'absolute',
@@ -40,9 +48,16 @@ export const Home = () => {
                     }}
                 >
                     <GoogleMapsView
-                        markers={[{ lat: -19.87062, lng: -43.96675 }]}
+                        cantinas={cantinas}
+                        onMarkerClick={(cantina) => setSelectedCantina(cantina)}
                     />
                 </Box>
+
+                <CantinaModal
+                    open={!!selectedCantina}
+                    onClose={() => setSelectedCantina(null)}
+                    cantina={selectedCantina}
+                />
             </Box>
         </Fragment>
     );
