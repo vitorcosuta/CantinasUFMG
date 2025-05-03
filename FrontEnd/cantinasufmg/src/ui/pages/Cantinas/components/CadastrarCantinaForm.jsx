@@ -14,6 +14,7 @@ import { createCantina } from '../../../../api/cantinaService';
 import { SelectLocationModal } from '../../../modals/SelectLocationModal';
 import { GoogleMapSelector } from '../../../components/maps/GoogleMapsLocationSelector';
 import { getUser } from '../../../../api/userService';
+import { CommonFormInput } from '../../../components/common/CommonFormInput';
 
 export const CadastrarCantinaForm = () => {
     const navigate = useNavigate();
@@ -76,9 +77,10 @@ export const CadastrarCantinaForm = () => {
                 Cadastrar Cantina
             </Typography>
 
-            <TextField
-                label="Nome"
+            <CommonFormInput
                 value={nome}
+                label="Nome"
+                placeholder="Nome da cantina"
                 onChange={(e) => setNome(e.target.value)}
             />
 
