@@ -52,6 +52,14 @@ namespace CantinasWebApi.Controllers
             {
                 var user = await _context.Users.FindAsync(lanchonete.idOwner);
 
+                var avaliacoes = await _context.Avaliacoes
+                    .Where(a => a.LanchoneteId == lanchonete.Id)
+                    .ToListAsync();
+
+                double? avaliacaoMedia = avaliacoes.Count > 0
+                    ? avaliacoes.Select(a => a.Nota).Average()
+                    : 0;
+
                 dtoLanchonetes.Add(new dtoLanchonete()
                 {
                     Id = lanchonete.Id,
@@ -59,6 +67,7 @@ namespace CantinasWebApi.Controllers
                     posX = lanchonete.posX,
                     posY = lanchonete.posY,
                     idOwner = lanchonete.idOwner,
+                    AvaliacaoMedia = avaliacaoMedia,
                     Owner = user == null ? null : new dtoUser
                     {
                         Id = user.Id,
