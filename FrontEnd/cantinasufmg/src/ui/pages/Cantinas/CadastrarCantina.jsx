@@ -1,9 +1,14 @@
 import React, { Fragment } from 'react';
 import { CommonHeader } from '../../components/common/CommonHeader';
-import { Box, Paper } from '@mui/material';
+import { Box, Paper, IconButton, Tooltip } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate } from 'react-router-dom';
 import { CadastrarCantinaForm } from './components/CadastrarCantinaForm';
+import { ROUTES } from '../../../routes/Routes';
 
 export const CadastrarCantina = () => {
+    const navigate = useNavigate();
+
     return (
         <Fragment>
             <Box
@@ -48,6 +53,7 @@ export const CadastrarCantina = () => {
                         <Paper
                             elevation={6}
                             sx={{
+                                position: 'relative',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 width: { xs: '90%', md: '70%', lg: '60%' },
@@ -55,10 +61,32 @@ export const CadastrarCantina = () => {
                                 height: { xs: 'auto', md: '70vh' },
                                 borderRadius: 3,
                                 overflow: 'hidden',
+                                justifyContent: 'center',
+                                alignItems: 'center',
                                 p: 3,
                                 backgroundColor: '#ffffff',
                             }}
                         >
+                            <Tooltip title="Voltar para cantinas">
+                                <IconButton
+                                    onClick={() =>
+                                        navigate(`${ROUTES.CANTINAS}`)
+                                    }
+                                    sx={{
+                                        position: 'absolute',
+                                        top: 16,
+                                        left: 16,
+                                        color: '#888',
+                                        backgroundColor: 'transparent',
+                                        '&:hover': {
+                                            backgroundColor: 'transparent',
+                                        },
+                                    }}
+                                >
+                                    <ArrowBackIcon />
+                                </IconButton>
+                            </Tooltip>
+
                             <Box
                                 sx={{
                                     width: '100%',

@@ -24,7 +24,10 @@ export const CantinaCard = ({ cantina }) => {
                     Responsável pelo cadastro: {cantina.owner?.email}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    Avaliação Média: {cantina.avaliacaoMedia}
+                    Avaliação Média:{' '}
+                    {cantina.avaliacaoMedia === 0
+                        ? 'Nenhuma avaliação'
+                        : cantina.avaliacaoMedia}
                 </Typography>
             </CardContent>
         </Card>
