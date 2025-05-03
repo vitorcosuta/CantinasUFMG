@@ -15,6 +15,8 @@ import { SelectLocationModal } from '../../../modals/SelectLocationModal';
 import { GoogleMapSelector } from '../../../components/maps/GoogleMapsLocationSelector';
 import { getUser } from '../../../../api/userService';
 import { CommonFormInput } from '../../../components/common/CommonFormInput';
+import { VincularProdutosList } from './VincularProdutosList';
+import { vincularProdutoCantina } from '../../../../api/vincularProdutoCantinaService';
 
 export const CadastrarCantinaForm = () => {
     const navigate = useNavigate();
@@ -25,6 +27,8 @@ export const CadastrarCantinaForm = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [loading, setLoading] = useState(false);
+    const [selectedProdutos, setSelectedProdutos] = useState([]);
+    const [precos, setPrecos] = useState({});
 
     const user = getUser();
 
@@ -42,14 +46,33 @@ export const CadastrarCantinaForm = () => {
             return;
         }
 
+        for (const id of selectedProdutos) {
+            const preco = precos[id];
+            if (!preco || preco === '' || isNaN(preco)) {
+                setError(`Defina um preço válido para o produto selecionado`);
+                return;
+            }
+        }
+
         setLoading(true);
         try {
-            await createCantina({
+            const response = await createCantina({
                 nome,
                 posX: Number(posX),
                 posY: Number(posY),
                 idOwner: user.id,
             });
+
+            await Promise.all(
+                selectedProdutos.map((produtoId) =>
+                    vincularProdutoCantina({
+                        idProduto: produtoId,
+                        idLanchonete:
+                            response.data[response.data.length - 1].id,
+                        preco: parseFloat(precos[produtoId]),
+                    })
+                )
+            );
 
             setSuccess('Cantina cadastrada com sucesso!');
             setTimeout(() => {
@@ -57,7 +80,8 @@ export const CadastrarCantinaForm = () => {
                 navigate(`${ROUTES.CANTINAS}${ROUTES.CANTINAS_HOME}`);
             }, 2000);
         } catch (err) {
-            setError('Erro ao cadastrar cantina.');
+            console.error(err);
+            setError('Erro ao cadastrar cantina ou vincular produtos.');
             setLoading(false);
         }
     };
@@ -70,7 +94,9 @@ export const CadastrarCantinaForm = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 2,
-                width: 300,
+                width: 450,
+                height: '100%',
+                overflow: 'hidden',
             }}
         >
             <Typography variant="h5" fontWeight="bold" textAlign="center">
@@ -83,6 +109,19 @@ export const CadastrarCantinaForm = () => {
                 placeholder="Nome da cantina"
                 onChange={(e) => setNome(e.target.value)}
             />
+
+            <Typography variant="subtitle1" fontWeight="bold">
+                Vincular Produtos:
+            </Typography>
+
+            <Box sx={{ flexGrow: 1, overflow: 'auto', minHeight: 0 }}>
+                <VincularProdutosList
+                    selectedProdutos={selectedProdutos}
+                    setSelectedProdutos={setSelectedProdutos}
+                    precos={precos}
+                    setPrecos={setPrecos}
+                />
+            </Box>
 
             <Typography variant="subtitle1" fontWeight="bold">
                 Localização:
@@ -119,13 +158,15 @@ export const CadastrarCantinaForm = () => {
             >
                 Digite as coordenadas:
             </Typography>
-            <Box display="flex" gap={2}>
+            <Box display="flex" gap={2} alignItems="center">
                 <TextField
                     label="Coordenada X"
                     value={posX}
                     onChange={(e) => setPosX(e.target.value)}
                     type="number"
+                    fullWidth
                     sx={{
+                        flex: 1,
                         '& input[type=number]': {
                             MozAppearance: 'textfield',
                         },
@@ -144,7 +185,9 @@ export const CadastrarCantinaForm = () => {
                     value={posY}
                     onChange={(e) => setPosY(e.target.value)}
                     type="number"
+                    fullWidth
                     sx={{
+                        flex: 1,
                         '& input[type=number]': {
                             MozAppearance: 'textfield',
                         },
