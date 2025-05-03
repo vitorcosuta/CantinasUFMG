@@ -15,6 +15,7 @@ import { SelectLocationModal } from '../../../modals/SelectLocationModal';
 import { GoogleMapSelector } from '../../../components/maps/GoogleMapsLocationSelector';
 import { getUser } from '../../../../api/userService';
 import { CommonFormInput } from '../../../components/common/CommonFormInput';
+import { VincularProdutosList } from './VincularProdutosList';
 
 export const CadastrarCantinaForm = () => {
     const navigate = useNavigate();
@@ -25,6 +26,7 @@ export const CadastrarCantinaForm = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [loading, setLoading] = useState(false);
+    const [selectedProdutos, setSelectedProdutos] = useState([]);
 
     const user = getUser();
 
@@ -70,7 +72,9 @@ export const CadastrarCantinaForm = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 2,
-                width: 300,
+                width: 450,
+                height: '100%',
+                overflow: 'hidden',
             }}
         >
             <Typography variant="h5" fontWeight="bold" textAlign="center">
@@ -83,6 +87,17 @@ export const CadastrarCantinaForm = () => {
                 placeholder="Nome da cantina"
                 onChange={(e) => setNome(e.target.value)}
             />
+
+            <Typography variant="subtitle1" fontWeight="bold">
+                Vincular Produtos:
+            </Typography>
+
+            <Box sx={{ flexGrow: 1, overflow: 'auto', minHeight: 0 }}>
+                <VincularProdutosList
+                    selectedProdutos={selectedProdutos}
+                    setSelectedProdutos={setSelectedProdutos}
+                />
+            </Box>
 
             <Typography variant="subtitle1" fontWeight="bold">
                 Localização:
