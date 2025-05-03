@@ -1,12 +1,10 @@
 import React, { Fragment } from 'react';
-import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
 import { Box } from '@mui/material';
 // import { getUser } from '../../../api/userService';
 import { CommonHeader } from '../../components/common/CommonHeader';
+import { GoogleMapsView } from '../../components/maps/GoogleMapsView';
 
 export const Home = () => {
-    const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-
     // const user = getUser();
 
     return (
@@ -41,19 +39,9 @@ export const Home = () => {
                         zIndex: 0,
                     }}
                 >
-                    <APIProvider apiKey={API_KEY}>
-                        <Map
-                            defaultZoom={16}
-                            defaultCenter={{ lat: -19.87062, lng: -43.96675 }}
-                            disableDefaultUI={true}
-                            clickableIcons={false}
-                            style={{ width: '100%', height: '100%' }}
-                        >
-                            <Marker
-                                position={{ lat: -19.87062, lng: -43.96675 }}
-                            />
-                        </Map>
-                    </APIProvider>
+                    <GoogleMapsView
+                        markers={[{ lat: -19.87062, lng: -43.96675 }]}
+                    />
                 </Box>
             </Box>
         </Fragment>

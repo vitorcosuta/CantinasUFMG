@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 // import { getUser } from '../../../api/userService';
 import { CommonHeader } from '../../components/common/CommonHeader';
+import { ROUTES } from '../../../routes/Routes';
 
 export const ProdutosHome = () => {
     const navigate = useNavigate();
@@ -70,7 +71,9 @@ export const ProdutosHome = () => {
                     },
                 }}
                 variant="contained"
-                onClick={() => navigate('/produtos/cadastrar')}
+                onClick={() =>
+                    navigate(`${ROUTES.PRODUTOS}${ROUTES.PRODUTOS_CADASTRAR}`)
+                }
             >
                 Adicionar produto
             </Button>

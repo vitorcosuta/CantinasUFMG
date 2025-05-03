@@ -14,7 +14,7 @@ export const CommonHeader = () => {
             <AppBar
                 position="static"
                 sx={{
-                    backgroundColor: '#EEEEEE',
+                    backgroundColor: '#ffffff',
                     boxShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',
                 }}
             >

@@ -50,6 +50,8 @@ namespace CantinasWebApi.Controllers
             var dtoLanchonetes = new List<dtoLanchonete>();
             foreach (var lanchonete in Lanchonetes)
             {
+                var user = await _context.Users.FindAsync(lanchonete.idOwner);
+
                 dtoLanchonetes.Add(new dtoLanchonete()
                 {
                     Id = lanchonete.Id,
@@ -57,7 +59,12 @@ namespace CantinasWebApi.Controllers
                     posX = lanchonete.posX,
                     posY = lanchonete.posY,
                     idOwner = lanchonete.idOwner,
-
+                    Owner = user == null ? null : new dtoUser
+                    {
+                        Id = user.Id,
+                        Username = user.Username,
+                        Email = user.Email
+                    }
                 });
             }
 

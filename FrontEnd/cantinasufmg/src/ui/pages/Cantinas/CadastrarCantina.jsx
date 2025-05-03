@@ -1,13 +1,9 @@
 import React, { Fragment } from 'react';
 import { CommonHeader } from '../../components/common/CommonHeader';
-import { Box, Button, Paper, Typography } from '@mui/material';
-import { CantinasList } from './components/CantinasList';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../../routes/Routes';
+import { Box, Paper } from '@mui/material';
+import { CadastrarCantinaForm } from './components/CadastrarCantinaForm';
 
-export const CantinasHome = () => {
-    const navigate = useNavigate();
-
+export const CadastrarCantina = () => {
     return (
         <Fragment>
             <Box
@@ -65,54 +61,14 @@ export const CantinasHome = () => {
                         >
                             <Box
                                 sx={{
+                                    width: '100%',
                                     display: 'flex',
-                                    flexDirection: 'column',
-                                    justifyContent: 'space-between',
+                                    justifyContent: 'center',
                                     alignItems: 'center',
-                                    height: '100%',
-                                    gap: 2,
+                                    backgroundColor: '#ffffff',
                                 }}
                             >
-                                <Typography
-                                    variant="h5"
-                                    fontWeight="bold"
-                                    textAlign="center"
-                                    color="#262423"
-                                >
-                                    Lista de Cantinas Cadastradas
-                                </Typography>
-
-                                <Box
-                                    sx={{
-                                        width: '100%',
-                                        flex: 1,
-                                        overflowY: 'auto',
-                                        overflowX: 'hidden',
-                                    }}
-                                >
-                                    <CantinasList />
-                                </Box>
-
-                                <Button
-                                    sx={{
-                                        width: '100%',
-                                        borderRadius: '999px',
-                                        fontWeight: 'bold',
-                                        backgroundColor: '#8E1616',
-                                        color: '#fff',
-                                        '&:hover': {
-                                            backgroundColor: '#a31e1e',
-                                        },
-                                    }}
-                                    variant="contained"
-                                    onClick={() =>
-                                        navigate(
-                                            `${ROUTES.CANTINAS}${ROUTES.CANTINAS_CADASTRAR}`
-                                        )
-                                    }
-                                >
-                                    Adicionar nova cantina
-                                </Button>
+                                <CadastrarCantinaForm />
                             </Box>
                         </Paper>
                     </Box>
