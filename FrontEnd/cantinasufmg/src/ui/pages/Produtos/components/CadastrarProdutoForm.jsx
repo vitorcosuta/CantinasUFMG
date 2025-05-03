@@ -65,21 +65,11 @@ export const CadastrarProdutoForm = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 2,
-                width: '20vw',
-                backgroundColor: '#EEEEEE',
-                padding: 2,
-                borderRadius: 2,
-                mt: '10%',
+                width: 300,
             }}
         >
-            <Typography
-                variant="h4"
-                sx={{
-                    whiteSpace: 'pre-line',
-                    color: '#262423',
-                }}
-            >
-                Cadastrar produto
+            <Typography variant="h5" fontWeight="bold" textAlign="center">
+                Cadastrar Produto
             </Typography>
 
             <CommonFormInput
@@ -117,6 +107,7 @@ export const CadastrarProdutoForm = () => {
                 }}
                 type="submit"
                 variant="contained"
+                disabled={loading}
             >
                 {loading ? (
                     <CircularProgress size={24} color="inherit" />
