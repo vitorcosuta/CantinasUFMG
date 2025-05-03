@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
-import { getAPI_KEY } from '../../../api/googleMapsService';
+import {
+    getAPI_KEY,
+    UFMG_DEFAULT_CENTER,
+} from '../../../api/googleMapsService';
 import { Box, Button } from '@mui/material';
 
 export const GoogleMapSelector = ({ onSave, initialPosition }) => {
@@ -30,9 +33,7 @@ export const GoogleMapSelector = ({ onSave, initialPosition }) => {
             >
                 <Map
                     defaultZoom={16}
-                    defaultCenter={
-                        initialPosition || { lat: -19.87062, lng: -43.96675 }
-                    }
+                    defaultCenter={initialPosition || UFMG_DEFAULT_CENTER}
                     disableDefaultUI={true}
                     clickableIcons={false}
                     onClick={handleClick}
