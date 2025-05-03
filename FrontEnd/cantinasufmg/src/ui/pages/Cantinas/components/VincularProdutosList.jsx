@@ -6,11 +6,12 @@ import { getProdutos } from '../../../../api/produtoService';
 export const VincularProdutosList = ({
     selectedProdutos,
     setSelectedProdutos,
+    precos,
+    setPrecos,
 }) => {
     const [produtos, setProdutos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const [precos, setPrecos] = useState({});
 
     useEffect(() => {
         const fetchProdutos = async () => {
@@ -71,7 +72,7 @@ export const VincularProdutosList = ({
             sx={{
                 flex: 1,
                 overflowY: 'auto',
-                maxHeight: '165px',
+                maxHeight: '100px',
                 px: 1,
                 py: 1,
                 border: '1px solid #ccc',
