@@ -60,6 +60,28 @@ namespace CantinasWebApi.Controllers
                     ? avaliacoes.Select(a => a.Nota).Average()
                     : 0;
 
+                var produtosLanchonete = await _context.ProdutosLanchonete
+                    .Where(p => p.IdLanchonete == lanchonete.Id)
+                    .ToListAsync();
+
+                var precos = produtosLanchonete.ToDictionary(p => p.IdProduto, p => p.Preco);
+
+                var produtos = await _context.Produtos
+                    .Where(p => precos.Keys.Contains(p.Id))
+                    .ToListAsync();
+
+                var dtoProdutos = new List<dtoProduto>();
+                foreach (var produto in produtos)
+                {
+                    dtoProdutos.Add(new dtoProduto
+                    {
+                        Id = produto.Id,
+                        Nome = produto.Nome,
+                        Descricao = produto.Descricao,
+                        Preco = precos[produto.Id]
+                    });
+                }
+
                 dtoLanchonetes.Add(new dtoLanchonete()
                 {
                     Id = lanchonete.Id,
@@ -73,7 +95,8 @@ namespace CantinasWebApi.Controllers
                         Id = user.Id,
                         Username = user.Username,
                         Email = user.Email
-                    }
+                    },
+                    Produtos = dtoProdutos
                 });
             }
 
