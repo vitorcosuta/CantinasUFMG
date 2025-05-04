@@ -28,7 +28,7 @@ export const CommonHeader = () => {
                     <Box
                         sx={{
                             display: 'flex',
-                            width: '280px',
+                            width: '350px',
                             alignItems: 'center',
                             gap: 2,
                             padding: '8px 0px',
@@ -57,7 +57,7 @@ export const CommonHeader = () => {
                     <Box
                         sx={{
                             display: 'flex',
-                            width: '280px',
+                            width: '350px',
                             justifyContent: 'end',
                             gap: 2,
                             padding: '8px 0px',

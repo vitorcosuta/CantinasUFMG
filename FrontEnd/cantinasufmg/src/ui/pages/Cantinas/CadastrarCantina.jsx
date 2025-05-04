@@ -46,8 +46,10 @@ export const CadastrarCantina = () => {
                             minHeight: '100vh',
                             display: 'flex',
                             justifyContent: 'center',
-                            alignItems: 'center',
+                            alignItems: 'flex-start',
                             backgroundColor: '#EEEEEE',
+                            paddingTop: '105px',
+                            boxSizing: 'border-box',
                         }}
                     >
                         <Paper
@@ -56,14 +58,12 @@ export const CadastrarCantina = () => {
                                 position: 'relative',
                                 display: 'flex',
                                 flexDirection: 'column',
-                                width: { xs: '90%', md: '70%', lg: '60%' },
-                                maxWidth: 600,
-                                height: { xs: 'auto', md: '70vh' },
+                                width: '48vw',
+                                height: { xs: 'auto', md: '80vh' },
                                 borderRadius: 3,
-                                overflow: 'hidden',
-                                justifyContent: 'center',
+                                overflow: 'auto',
+                                justifyContent: 'flex-start',
                                 alignItems: 'center',
-                                p: 3,
                                 backgroundColor: '#ffffff',
                             }}
                         >
@@ -92,8 +92,9 @@ export const CadastrarCantina = () => {
                                     width: '100%',
                                     display: 'flex',
                                     justifyContent: 'center',
-                                    alignItems: 'center',
+                                    alignItems: 'flex-start',
                                     backgroundColor: '#ffffff',
+                                    pb: 4,
                                 }}
                             >
                                 <CadastrarCantinaForm />

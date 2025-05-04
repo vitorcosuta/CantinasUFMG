@@ -34,11 +34,11 @@ export const CadastrarProduto = () => {
                 <Box
                     sx={{
                         width: '100%',
-                        height: '100%',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
+                        height: '100vh',
+                        overflowY: 'auto',
+                        position: 'relative',
                         zIndex: 0,
+                        boxSizing: 'border-box',
                     }}
                 >
                     <Box
@@ -46,8 +46,10 @@ export const CadastrarProduto = () => {
                             minHeight: '100vh',
                             display: 'flex',
                             justifyContent: 'center',
-                            alignItems: 'center',
+                            alignItems: 'flex-start',
                             backgroundColor: '#EEEEEE',
+                            paddingTop: '105px',
+                            boxSizing: 'border-box',
                         }}
                     >
                         <Paper
@@ -56,8 +58,7 @@ export const CadastrarProduto = () => {
                                 position: 'relative',
                                 display: 'flex',
                                 flexDirection: 'column',
-                                width: { xs: '90%', md: '70%', lg: '60%' },
-                                maxWidth: 600,
+                                width: '45vw',
                                 height: { xs: 'auto', md: '70vh' },
                                 borderRadius: 3,
                                 overflow: 'hidden',

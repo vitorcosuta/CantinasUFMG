@@ -45,8 +45,10 @@ export const CantinasHome = () => {
                             minHeight: '100vh',
                             display: 'flex',
                             justifyContent: 'center',
-                            alignItems: 'center',
+                            alignItems: 'flex-start',
                             backgroundColor: '#EEEEEE',
+                            paddingTop: '105px',
+                            boxSizing: 'border-box',
                         }}
                     >
                         <Paper
@@ -54,8 +56,7 @@ export const CantinasHome = () => {
                             sx={{
                                 display: 'flex',
                                 flexDirection: 'column',
-                                width: { xs: '90%', md: '70%', lg: '60%' },
-                                maxWidth: 600,
+                                width: '45vw',
                                 height: { xs: 'auto', md: '70vh' },
                                 borderRadius: 3,
                                 overflow: 'hidden',

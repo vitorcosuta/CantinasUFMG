@@ -9,7 +9,10 @@ const modalStyle = {
     transform: 'translate(-50%, -50%)',
     backgroundColor: 'white',
     borderRadius: '10px',
-    width: 800,
+    width: '90vw',
+    maxWidth: 800,
+    maxHeight: '90vh',
+    overflowY: 'auto',
     boxShadow: 24,
 };
 

@@ -49,7 +49,9 @@ export const CadastrarCantinaForm = () => {
         for (const id of selectedProdutos) {
             const preco = precos[id];
             if (!preco || preco === '' || isNaN(preco)) {
-                setError(`Defina um preço válido para o produto selecionado`);
+                setError(
+                    `Defina um preço válido para o(s) produto(s) selecionado(s)`
+                );
                 return;
             }
         }
@@ -94,9 +96,11 @@ export const CadastrarCantinaForm = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 2,
-                width: 450,
-                height: '100%',
-                overflow: 'hidden',
+                width: '100%',
+                maxWidth: 450,
+                maxHeight: '100vh',
+                p: 3,
+                boxSizing: 'border-box',
             }}
         >
             <Typography variant="h5" fontWeight="bold" textAlign="center">
@@ -114,7 +118,7 @@ export const CadastrarCantinaForm = () => {
                 Vincular Produtos:
             </Typography>
 
-            <Box sx={{ flexGrow: 1, overflow: 'auto', minHeight: 0 }}>
+            <Box>
                 <VincularProdutosList
                     selectedProdutos={selectedProdutos}
                     setSelectedProdutos={setSelectedProdutos}
