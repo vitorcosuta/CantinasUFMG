@@ -78,6 +78,7 @@ namespace CantinasWebApi.Controllers
                         Id = produto.Id,
                         Nome = produto.Nome,
                         Descricao = produto.Descricao,
+                        idOwner = produto.idOwner,
                         Preco = precos[produto.Id]
                     });
                 }
@@ -143,6 +144,7 @@ namespace CantinasWebApi.Controllers
                     Id = produto.Id,
                     Nome = produto.Nome,
                     Descricao = produto.Descricao,
+                    idOwner = produto.idOwner,
                     Preco = PrecoProdutos[produto.Id],
                 });
             }

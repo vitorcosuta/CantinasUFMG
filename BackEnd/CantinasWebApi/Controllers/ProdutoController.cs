@@ -33,6 +33,7 @@ namespace CantinasWebApi.Controllers
                     Id = produto.Id,
                     Nome = produto.Nome,
                     Descricao = produto.Descricao,
+                    idOwner = produto.idOwner,
                 });
             }
 
@@ -51,6 +52,7 @@ namespace CantinasWebApi.Controllers
                     Id = produto.Id,
                     Nome = produto.Nome,
                     Descricao = produto.Descricao,
+                    idOwner = produto.idOwner,
                 });
             }
 
@@ -72,6 +74,7 @@ namespace CantinasWebApi.Controllers
                 Id = Produto.Id,
                 Nome = Produto.Nome,
                 Descricao = Produto.Descricao,
+                idOwner = Produto.idOwner,
             };
             
             return Ok(dtoProduto);
@@ -89,6 +92,7 @@ namespace CantinasWebApi.Controllers
                     Id = produto.Id,
                     Nome = produto.Nome,
                     Descricao = produto.Descricao,
+                    idOwner = produto.idOwner,
                 });
             }
 
