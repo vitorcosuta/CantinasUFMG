@@ -43,6 +43,33 @@ namespace CantinasWebApi.Controllers
             return Ok(dtoLanchonetes);
         }
 
+        [HttpPost("UpdateLanchonete")]
+        public async Task<ActionResult<dtoLanchonete>> UpdateLanchonete(Lanchonete lanchonete)
+        {
+            var Lanchonete = await _context.Lanchonetes.FindAsync(lanchonete.Id);
+
+            if (Lanchonete == null)
+            {
+                return BadRequest("Lanchonete does not exist.");
+            }
+
+            Lanchonete.Nome = lanchonete.Nome;
+            Lanchonete.posX = lanchonete.posX;
+            Lanchonete.posY = lanchonete.posY;
+            Lanchonete.idOwner = lanchonete.idOwner;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new dtoLanchonete()
+            {
+                Id = Lanchonete.Id,
+                Nome = Lanchonete.Nome,
+                posX = Lanchonete.posX,
+                posY = Lanchonete.posY,
+                idOwner = Lanchonete.idOwner,
+            });
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<dtoLanchonete>>> GetAllLanchonetes()
         {
