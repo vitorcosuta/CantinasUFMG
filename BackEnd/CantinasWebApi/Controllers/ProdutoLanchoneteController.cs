@@ -38,6 +38,29 @@ namespace CantinasWebApi.Controllers
             return Ok(dtoProdutosLanchonete);
         }
 
+        [HttpPost("AtualizarPreco")]
+        public async Task<ActionResult<dtoProdutoLanchonete>> UpdateProduto(ProdutoLanchonete produtoLanchonete)
+        {
+            var ProdutoLanchonete = await _context.ProdutosLanchonete.FindAsync(produtoLanchonete.Id);
+
+            if (ProdutoLanchonete == null)
+            {
+                return BadRequest("ProdutoLanchonete does not exist.");
+            }
+
+            ProdutoLanchonete.Preco = produtoLanchonete.Preco;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new dtoProdutoLanchonete()
+            {
+                Id = ProdutoLanchonete.Id,
+                IdProduto = ProdutoLanchonete.IdProduto,
+                IdLanchonete = ProdutoLanchonete.IdLanchonete,
+                Preco = ProdutoLanchonete.Preco
+            });
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<dtoProdutoLanchonete>>> GetAllProdutosLanchonete()
         {
