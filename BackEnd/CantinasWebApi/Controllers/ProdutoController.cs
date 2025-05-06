@@ -40,6 +40,31 @@ namespace CantinasWebApi.Controllers
             return Ok(dtoProdutos);
         }
 
+        [HttpPost("UpdateProduto")]
+        public async Task<ActionResult<dtoProduto>> UpdateProduto(Produto produto)
+        {
+            var Produto = await _context.Produtos.FindAsync(produto.Id);
+
+            if (Produto == null)
+            {
+                return BadRequest("Produto does not exist.");
+            }
+
+            Produto.Nome = produto.Nome;
+            Produto.Descricao = produto.Descricao;
+            Produto.idOwner = produto.idOwner;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new dtoProduto()
+            {
+                Id = Produto.Id,
+                Nome = Produto.Nome,
+                Descricao = Produto.Descricao,
+                idOwner = Produto.idOwner,
+            });
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<dtoProduto>>> GetAllProdutos()
         {
