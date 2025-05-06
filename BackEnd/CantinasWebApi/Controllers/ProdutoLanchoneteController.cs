@@ -61,6 +61,23 @@ namespace CantinasWebApi.Controllers
             });
         }
 
+        [HttpPost("RemoverProdutoLanchonete")]
+        public async Task<ActionResult<dtoProdutoLanchonete>> RemoverProdutoLanchonete(ProdutoLanchonete produtoLanchonete)
+        {
+            var ProdutoLanchonete = await _context.ProdutosLanchonete.FindAsync(produtoLanchonete.Id);
+
+            if (ProdutoLanchonete == null)
+            {
+                return BadRequest("ProdutoLanchonete does not exist.");
+            }
+
+            _context.ProdutosLanchonete.Remove(ProdutoLanchonete);
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<dtoProdutoLanchonete>>> GetAllProdutosLanchonete()
         {
