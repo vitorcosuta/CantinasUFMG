@@ -3,12 +3,9 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import { UserDropdownButton } from './UserDropdownButton';
-import { getUser } from '../../../api/userService';
 import { CommonHeaderItemsList } from './CommonHeaderItemsList';
 
 export const CommonHeader = () => {
-    const user = getUser();
-
     return (
         <Fragment>
             <AppBar
@@ -63,7 +60,7 @@ export const CommonHeader = () => {
                             padding: '8px 0px',
                         }}
                     >
-                        <UserDropdownButton currentUser={user} />
+                        <UserDropdownButton />
                     </Box>
                 </Toolbar>
             </AppBar>

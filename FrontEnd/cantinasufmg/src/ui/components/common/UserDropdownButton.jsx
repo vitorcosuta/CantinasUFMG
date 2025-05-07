@@ -12,12 +12,16 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { logout } from '../../../api/userService';
+import { getUser, logout } from '../../../api/userService';
+import { EditUserModal } from '../../modals/EditUserModal';
 import { defaultUserIcon } from '../../../api/defaultUserIcon';
 
-export const UserDropdownButton = ({ currentUser }) => {
+export const UserDropdownButton = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [loadingLogout, setLoadingLogout] = useState(false);
+    const [editModalOpen, setEditModalOpen] = useState(false);
+
+    const currentUser = getUser();
 
     const open = Boolean(anchorEl);
 
@@ -30,8 +34,7 @@ export const UserDropdownButton = ({ currentUser }) => {
     };
 
     const handleEditUser = () => {
-        //TODO
-
+        setEditModalOpen(true);
         handleClose();
     };
 
@@ -138,6 +141,12 @@ export const UserDropdownButton = ({ currentUser }) => {
                     />
                 </MenuItem>
             </Menu>
+
+            <EditUserModal
+                open={editModalOpen}
+                onClose={() => setEditModalOpen(false)}
+                user={currentUser}
+            />
         </>
     );
 };
