@@ -65,6 +65,30 @@ namespace CantinasWebApi.Controllers
             });
         }
 
+        [HttpPost("DeleteProduto")]
+        public async Task<ActionResult<dtoProduto>> DeleteProduto(Produto produto)
+        {
+            var Produto = await _context.Produtos.FindAsync(produto.Id);
+
+            if (Produto == null)
+            {
+                return BadRequest("Produto does not exist.");
+            }
+
+            _context.Produtos.Remove(Produto);
+
+            var produtosLanchonete = _context.ProdutosLanchonete.Where(x => x.IdProduto == produto.Id);
+
+            if(produtosLanchonete != default)
+            {
+                _context.ProdutosLanchonete.RemoveRange(produtosLanchonete);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<dtoProduto>>> GetAllProdutos()
         {
