@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Box, CircularProgress, Alert, Typography } from '@mui/material';
 import { CantinaCard } from './CantinaCard';
 import { getCantinas } from '../../../../api/cantinaService';
@@ -7,6 +7,7 @@ export const CantinasList = () => {
     const [cantinas, setCantinas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         const fetchCantinas = async () => {
