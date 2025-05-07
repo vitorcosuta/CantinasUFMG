@@ -92,6 +92,11 @@ namespace CantinasWebApi.Controllers
                 user.Password = data.NewPassword;
             }
 
+            if (!string.IsNullOrWhiteSpace(data.Photo))
+            {
+                user.Photo = data.Photo;
+            }
+
             await _context.SaveChangesAsync();
 
             return Ok(new dtoUser
