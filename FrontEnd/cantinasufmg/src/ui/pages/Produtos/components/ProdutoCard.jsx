@@ -67,6 +67,8 @@ export const ProdutoCard = ({ produto }) => {
                 <Box
                     sx={{
                         position: 'absolute',
+                        width: '40vw',
+                        minHeight: '400px',
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',

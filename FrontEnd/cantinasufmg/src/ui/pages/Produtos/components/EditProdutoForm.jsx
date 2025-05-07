@@ -63,9 +63,9 @@ export const EditProdutoForm = ({ setOpen, produto }) => {
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                gap: 2,
-                width: '100%',
                 margin: 'auto',
+                gap: 7,
+                width: '100%',
             }}
         >
             <Typography variant="h5" fontWeight="bold" textAlign="center">
