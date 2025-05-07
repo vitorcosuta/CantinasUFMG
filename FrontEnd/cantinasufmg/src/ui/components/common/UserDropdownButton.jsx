@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-    Button,
     Menu,
     MenuItem,
     ListItemIcon,
@@ -8,11 +7,13 @@ import {
     Typography,
     Box,
     CircularProgress,
+    Avatar,
+    Divider,
 } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import EditIcon from '@mui/icons-material/Edit';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { logout } from '../../../api/userService';
+import { defaultUserIcon } from '../../../api/defaultUserIcon';
 
 export const UserDropdownButton = ({ currentUser }) => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -46,21 +47,13 @@ export const UserDropdownButton = ({ currentUser }) => {
 
     return (
         <>
-            <Button
-                variant="contained"
+            <Avatar
+                src={defaultUserIcon}
                 onClick={handleClick}
-                endIcon={<ArrowDropDownIcon />}
                 sx={{
-                    borderRadius: '5px',
-                    fontWeight: 'bold',
-                    backgroundColor: '#D84040',
-                    color: '#fff',
-                    px: 3,
-                    py: 1,
+                    cursor: 'pointer'
                 }}
-            >
-                Área do Usuário
-            </Button>
+            />
 
             <Menu
                 anchorEl={anchorEl}
@@ -68,7 +61,8 @@ export const UserDropdownButton = ({ currentUser }) => {
                 onClose={handleClose}
                 PaperProps={{
                     sx: {
-                        width: anchorEl ? anchorEl.offsetWidth : 'auto',
+                        minWidth: 200,
+                        maxWidth: 300,
                         backgroundColor: '#EEEEEE',
                         borderRadius: '8px',
                     },
@@ -85,11 +79,9 @@ export const UserDropdownButton = ({ currentUser }) => {
                 {currentUser && (
                     <Box
                         sx={{
-                            px: 2,
-                            py: 1,
-                            borderBottom: '1px solid #ccc',
-                            mb: 1,
-                            maxWidth: anchorEl ? anchorEl.offsetWidth : 'auto',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center'
                         }}
                     >
                         <Typography
@@ -118,6 +110,11 @@ export const UserDropdownButton = ({ currentUser }) => {
                         >
                             {currentUser.email}
                         </Typography>
+
+                        <Divider 
+                            variant='middle'
+                            sx={{ width: '100%', mt: 1, mb: 1 }}
+                        />
                     </Box>
                 )}
 
