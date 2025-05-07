@@ -1,15 +1,14 @@
-import React, { useState } from "react";
-import { editProduto } from "../../../../api/produtoService";
-import { Box } from "@mui/material";
-import { Typography } from "@mui/material";
-import { Button } from "@mui/material";
-import { Alert } from "@mui/material";
-import { CircularProgress } from "@mui/material";
-import { CommonFormInput } from "../../../components/common/CommonFormInput";
-import { CommonFormTextbox } from "../../../components/common/CommonFormTextbox";
+import React, { useState } from 'react';
+import { editProduto } from '../../../../api/produtoService';
+import { Box } from '@mui/material';
+import { Typography } from '@mui/material';
+import { Button } from '@mui/material';
+import { Alert } from '@mui/material';
+import { CircularProgress } from '@mui/material';
+import { CommonFormInput } from '../../../components/common/CommonFormInput';
+import { CommonFormTextbox } from '../../../components/common/CommonFormTextbox';
 
 export const EditProdutoForm = ({ setOpen, produto }) => {
-
     const [nome, setNome] = useState(produto?.nome ?? '');
     const [descricao, setDescricao] = useState(produto?.descricao ?? '');
     const [error, setError] = useState('');
@@ -23,25 +22,24 @@ export const EditProdutoForm = ({ setOpen, produto }) => {
     const handleSubmit = async (e) => {
         setError('');
         setSuccess('');
-    
+
         if (!validate()) {
             setError('Todos os campos são obrigatórios');
             return;
         }
-    
+
         setLoading(true);
-    
+
         try {
-            
             const obj = {
                 id: produto.id,
                 nome: nome,
                 descricao: descricao,
-                idOwner: produto.idOwner
-            }
+                idOwner: produto.idOwner,
+            };
 
-            const response = await editProduto(obj);
-    
+            await editProduto(obj);
+
             setSuccess('Produto editado com sucesso!');
             setTimeout(() => {
                 setLoading(false);
@@ -61,8 +59,8 @@ export const EditProdutoForm = ({ setOpen, produto }) => {
             component="form"
             onSubmit={handleSubmit}
             sx={{
-                display: "flex",
-                flexDirection: "column",
+                display: 'flex',
+                flexDirection: 'column',
                 margin: 'auto',
                 gap: 7,
                 width: '100%',
@@ -79,36 +77,48 @@ export const EditProdutoForm = ({ setOpen, produto }) => {
                 onChange={(e) => setNome(e.target.value)}
             />
 
-            <CommonFormTextbox 
+            <CommonFormTextbox
                 value={descricao}
-                label='Descrição'
+                label="Descrição"
                 onChange={(e) => setDescricao(e.target.value)}
             />
 
             {error && <Alert severity="error">{error}</Alert>}
             {success && <Alert severity="success">{success}</Alert>}
 
-            <Box 
+            <Box
                 sx={{
                     display: 'flex',
                     flexDirection: 'row',
-                    justifyContent: 'space-between',
+                    justifyContent: 'flex-end',
+                    gap: 2,
                 }}
             >
-                <Button type="submit" variant="contained" disabled={loading}>
-                    {loading ? (
-                        <CircularProgress size={24} color="inherit" />
-                    ) : (
-                        'Editar'
-                    )}
-                </Button>
-
-                <Button 
-                    color="error" 
-                    variant="contained"
+                <Button
+                    sx={{
+                        color: '#D84040',
+                    }}
                     onClick={handleCancelClick}
                 >
                     Cancelar
+                </Button>
+                <Button
+                    type="submit"
+                    variant="contained"
+                    disabled={loading}
+                    sx={{
+                        borderRadius: '5px',
+                        backgroundColor: '#D84040',
+                        color: '#fff',
+                        px: 2,
+                        py: 1,
+                    }}
+                >
+                    {loading ? (
+                        <CircularProgress size={24} color="#EEEEEE" />
+                    ) : (
+                        'Salvar'
+                    )}
                 </Button>
             </Box>
         </Box>

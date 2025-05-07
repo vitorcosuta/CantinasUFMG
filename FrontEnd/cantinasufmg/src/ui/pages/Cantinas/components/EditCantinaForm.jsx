@@ -1,18 +1,17 @@
-import React, { useState } from "react";
-import { editCantina } from "../../../../api/cantinaService";
-import { Box } from "@mui/material";
-import { Typography } from "@mui/material";
-import { Button } from "@mui/material";
-import { Divider } from "@mui/material";
-import { TextField } from "@mui/material";
-import { Alert } from "@mui/material";
-import { CircularProgress } from "@mui/material";
-import { CommonFormInput } from "../../../components/common/CommonFormInput";
-import { SelectLocationModal } from "../../../modals/SelectLocationModal";
-import { GoogleMapSelector } from "../../../components/maps/GoogleMapsLocationSelector";
+import React, { useState } from 'react';
+import { editCantina } from '../../../../api/cantinaService';
+import { Box } from '@mui/material';
+import { Typography } from '@mui/material';
+import { Button } from '@mui/material';
+import { Divider } from '@mui/material';
+import { TextField } from '@mui/material';
+import { Alert } from '@mui/material';
+import { CircularProgress } from '@mui/material';
+import { CommonFormInput } from '../../../components/common/CommonFormInput';
+import { SelectLocationModal } from '../../../modals/SelectLocationModal';
+import { GoogleMapSelector } from '../../../components/maps/GoogleMapsLocationSelector';
 
 export const EditCantinaForm = ({ setOpen, cantina }) => {
-
     const [nome, setNome] = useState(cantina?.nome ?? '');
     const [posX, setPosX] = useState(cantina?.posX ?? '');
     const [posY, setPosY] = useState(cantina?.posY ?? '');
@@ -28,26 +27,25 @@ export const EditCantinaForm = ({ setOpen, cantina }) => {
     const handleSubmit = async (e) => {
         setError('');
         setSuccess('');
-    
+
         if (!validate()) {
             setError('Todos os campos são obrigatórios');
             return;
         }
-    
+
         setLoading(true);
-    
+
         try {
-            
             const obj = {
                 id: cantina.id,
                 nome: nome,
                 posX: Number(posX),
                 posY: Number(posY),
-                idOwner: cantina.idOwner
-            }
+                idOwner: cantina.idOwner,
+            };
 
-            const response = await editCantina(obj);
-    
+            await editCantina(obj);
+
             setSuccess('Cantina editada com sucesso!');
             setTimeout(() => {
                 setLoading(false);
@@ -67,8 +65,8 @@ export const EditCantinaForm = ({ setOpen, cantina }) => {
             component="form"
             onSubmit={handleSubmit}
             sx={{
-                display: "flex",
-                flexDirection: "column",
+                display: 'flex',
+                flexDirection: 'column',
                 gap: 2,
                 width: '100%',
                 margin: 'auto',
@@ -168,27 +166,39 @@ export const EditCantinaForm = ({ setOpen, cantina }) => {
             {error && <Alert severity="error">{error}</Alert>}
             {success && <Alert severity="success">{success}</Alert>}
 
-            <Box 
+            <Box
                 sx={{
                     display: 'flex',
                     flexDirection: 'row',
-                    justifyContent: 'space-between',
+                    justifyContent: 'flex-end',
+                    gap: 2,
                 }}
             >
-                <Button type="submit" variant="contained" disabled={loading}>
-                    {loading ? (
-                        <CircularProgress size={24} color="inherit" />
-                    ) : (
-                        'Editar'
-                    )}
-                </Button>
-
-                <Button 
-                    color="error" 
-                    variant="contained"
+                <Button
+                    sx={{
+                        color: '#D84040',
+                    }}
                     onClick={handleCancelClick}
                 >
                     Cancelar
+                </Button>
+                <Button
+                    type="submit"
+                    variant="contained"
+                    disabled={loading}
+                    sx={{
+                        borderRadius: '5px',
+                        backgroundColor: '#D84040',
+                        color: '#fff',
+                        px: 2,
+                        py: 1,
+                    }}
+                >
+                    {loading ? (
+                        <CircularProgress size={24} color="#EEEEEE" />
+                    ) : (
+                        'Salvar'
+                    )}
                 </Button>
             </Box>
 

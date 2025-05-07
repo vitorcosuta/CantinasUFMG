@@ -7,7 +7,7 @@ import {
     Button,
     Divider,
     Alert,
-    Avatar
+    Avatar,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { CommonFormInput } from '../components/common/CommonFormInput';
@@ -49,16 +49,13 @@ export const EditUserModal = ({ open, setOpen, user }) => {
             newUsername: username !== user.username ? username : null,
             password: currentPassword,
             newPassword: newPassword !== '' ? newPassword : null,
-            photo: photo
+            photo: photo,
         };
-
-        console.log(userToUpdate);
 
         try {
             const response = await updateUser(userToUpdate);
 
             const updatedUser = response.data;
-            console.log('Usuário atualizado:', updatedUser);
 
             setUser(updatedUser);
             setErrorMsg('');
@@ -72,7 +69,7 @@ export const EditUserModal = ({ open, setOpen, user }) => {
     };
 
     const handleClose = (event, reason) => {
-        if (reason !== 'backdropClick'){
+        if (reason !== 'backdropClick') {
             setPhoto(user?.photo || defaultUserIcon);
             setOpen(false);
         }
@@ -91,10 +88,7 @@ export const EditUserModal = ({ open, setOpen, user }) => {
     }, [user, open]);
 
     return (
-        <Modal
-            open={open}
-            onClose={handleClose}
-        >
+        <Modal open={open} onClose={handleClose}>
             <Box sx={modalStyle}>
                 <Box
                     sx={{
@@ -136,7 +130,11 @@ export const EditUserModal = ({ open, setOpen, user }) => {
                             <Avatar
                                 src={photo}
                                 alt={username}
-                                sx={{ width: '150px', height: '150px', margin: 'auto' }}
+                                sx={{
+                                    width: '150px',
+                                    height: '150px',
+                                    margin: 'auto',
+                                }}
                             />
 
                             <CommonImgUploadButton setPhoto={setPhoto}>

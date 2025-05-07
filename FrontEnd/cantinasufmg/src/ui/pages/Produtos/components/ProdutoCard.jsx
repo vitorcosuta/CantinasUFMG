@@ -7,11 +7,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import { EditProdutoForm } from './EditProdutoForm';
 
 export const ProdutoCard = ({ produto }) => {
-
     const [open, setOpen] = useState(false);
-    
+
     const handleClose = (event, reason) => {
-        if (reason !== 'backdropClick'){
+        if (reason !== 'backdropClick') {
             setOpen(false);
         }
     };
@@ -37,7 +36,7 @@ export const ProdutoCard = ({ produto }) => {
                             display: 'flex',
                             flexDirection: 'row',
                             justifyContent: 'space-between',
-                            alignItems: 'center'
+                            alignItems: 'center',
                         }}
                     >
                         <Box>
@@ -48,18 +47,18 @@ export const ProdutoCard = ({ produto }) => {
                                 Descrição: {produto.descricao}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                Responsável pelo cadastro: {produto.owner?.email}
+                                Responsável pelo cadastro:{' '}
+                                {produto.owner?.email}
                             </Typography>
                         </Box>
 
-                        <IconButton 
+                        <IconButton
                             onClick={() => setOpen(true)}
                             sx={{ height: 40, width: 40 }}
                         >
                             <EditIcon />
                         </IconButton>
                     </Box>
-                    
                 </CardContent>
             </Card>
 
@@ -67,7 +66,7 @@ export const ProdutoCard = ({ produto }) => {
                 <Box
                     sx={{
                         position: 'absolute',
-                        width: '40vw',
+                        width: '30vw',
                         minHeight: '400px',
                         top: '50%',
                         left: '50%',
