@@ -82,12 +82,22 @@ export const CantinaModal = ({ open, onClose, cantina }) => {
                                 pb: 1,
                             }}
                         >
-                            {cantina.produtos.map((produto) => (
-                                <CantinaProdutoCard
-                                    key={produto.id}
-                                    produto={produto}
-                                />
-                            ))}
+                            {cantina.produtos.length === 0 ? (
+                                <Typography
+                                    variant="h6"
+                                    color="textSecondary"
+                                    textAlign="center"
+                                >
+                                    Nenhum produto cadastrado
+                                </Typography>
+                            ) : (
+                                cantina.produtos.map((produto) => (
+                                    <CantinaProdutoCard
+                                        key={produto.id}
+                                        produto={produto}
+                                    />
+                                ))
+                            )}
                         </Box>
                     </Box>
                 </Box>
