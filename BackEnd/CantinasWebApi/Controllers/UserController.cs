@@ -67,6 +67,38 @@ namespace CantinasWebApi.Controllers
             });
         }
 
+        [HttpPost("UpdateUser")]
+        public async Task<ActionResult<dtoUser>> UpdateUser(User user)
+        {
+            var User = await _context.Users.FindAsync(user.Id);
+
+            if (User == default)
+            {
+                return StatusCode(403);
+            }
+
+            if(user.Email != User.Email)
+            {
+                return BadRequest("Não é possível alterar o e-mail.");
+            }
+
+            User.Username = user.Username;
+            User.Password = user.Password;
+            User.IsAdmin = user.IsAdmin;
+            User.Photo = user.Photo;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new dtoUser()
+            {
+                Id = User.Id,
+                Email = User.Email,
+                Username = User.Username,
+                IsAdmin = User.IsAdmin,
+                Photo = User.Photo,
+            });
+        }
+
         [HttpPost("SetAdmin")]
         public async Task<ActionResult<dtoUser>> SetAdmin(User user)
         {

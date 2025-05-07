@@ -43,6 +43,64 @@ namespace CantinasWebApi.Controllers
             return Ok(dtoLanchonetes);
         }
 
+        [HttpPost("UpdateLanchonete")]
+        public async Task<ActionResult<dtoLanchonete>> UpdateLanchonete(Lanchonete lanchonete)
+        {
+            var Lanchonete = await _context.Lanchonetes.FindAsync(lanchonete.Id);
+
+            if (Lanchonete == null)
+            {
+                return BadRequest("Lanchonete does not exist.");
+            }
+
+            Lanchonete.Nome = lanchonete.Nome;
+            Lanchonete.posX = lanchonete.posX;
+            Lanchonete.posY = lanchonete.posY;
+            Lanchonete.idOwner = lanchonete.idOwner;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new dtoLanchonete()
+            {
+                Id = Lanchonete.Id,
+                Nome = Lanchonete.Nome,
+                posX = Lanchonete.posX,
+                posY = Lanchonete.posY,
+                idOwner = Lanchonete.idOwner,
+            });
+        }
+
+        [HttpPost("DeleteLanchonete")]
+        public async Task<ActionResult<dtoLanchonete>> DeleteLanchonete(Lanchonete lanchonete)
+        {
+            var Lanchonete = await _context.Lanchonetes.FindAsync(lanchonete.Id);
+
+            if (Lanchonete == null)
+            {
+                return BadRequest("Lanchonete does not exist.");
+            }
+
+            _context.Lanchonetes.Remove(Lanchonete);
+
+            var produtosLanchonete = _context.ProdutosLanchonete.Where(x => x.IdLanchonete == lanchonete.Id);
+            if(produtosLanchonete != default)
+            {
+                _context.ProdutosLanchonete.RemoveRange(produtosLanchonete);
+            }
+
+            var favoritos = _context.Favoritos.Where(x => x.LanchoneteId == lanchonete.Id);
+            if (favoritos != default)
+            {
+                _context.Favoritos.RemoveRange(favoritos);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+
+
         [HttpGet]
         public async Task<ActionResult<List<dtoLanchonete>>> GetAllLanchonetes()
         {
@@ -78,6 +136,7 @@ namespace CantinasWebApi.Controllers
                         Id = produto.Id,
                         Nome = produto.Nome,
                         Descricao = produto.Descricao,
+                        idOwner = produto.idOwner,
                         Preco = precos[produto.Id]
                     });
                 }
@@ -143,6 +202,7 @@ namespace CantinasWebApi.Controllers
                     Id = produto.Id,
                     Nome = produto.Nome,
                     Descricao = produto.Descricao,
+                    idOwner = produto.idOwner,
                     Preco = PrecoProdutos[produto.Id],
                 });
             }

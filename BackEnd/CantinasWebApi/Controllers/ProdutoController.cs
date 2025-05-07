@@ -33,10 +33,60 @@ namespace CantinasWebApi.Controllers
                     Id = produto.Id,
                     Nome = produto.Nome,
                     Descricao = produto.Descricao,
+                    idOwner = produto.idOwner,
                 });
             }
 
             return Ok(dtoProdutos);
+        }
+
+        [HttpPost("UpdateProduto")]
+        public async Task<ActionResult<dtoProduto>> UpdateProduto(Produto produto)
+        {
+            var Produto = await _context.Produtos.FindAsync(produto.Id);
+
+            if (Produto == null)
+            {
+                return BadRequest("Produto does not exist.");
+            }
+
+            Produto.Nome = produto.Nome;
+            Produto.Descricao = produto.Descricao;
+            Produto.idOwner = produto.idOwner;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new dtoProduto()
+            {
+                Id = Produto.Id,
+                Nome = Produto.Nome,
+                Descricao = Produto.Descricao,
+                idOwner = Produto.idOwner,
+            });
+        }
+
+        [HttpPost("DeleteProduto")]
+        public async Task<ActionResult<dtoProduto>> DeleteProduto(Produto produto)
+        {
+            var Produto = await _context.Produtos.FindAsync(produto.Id);
+
+            if (Produto == null)
+            {
+                return BadRequest("Produto does not exist.");
+            }
+
+            _context.Produtos.Remove(Produto);
+
+            var produtosLanchonete = _context.ProdutosLanchonete.Where(x => x.IdProduto == produto.Id);
+
+            if(produtosLanchonete != default)
+            {
+                _context.ProdutosLanchonete.RemoveRange(produtosLanchonete);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
         }
 
         [HttpGet]
@@ -51,6 +101,7 @@ namespace CantinasWebApi.Controllers
                     Id = produto.Id,
                     Nome = produto.Nome,
                     Descricao = produto.Descricao,
+                    idOwner = produto.idOwner,
                 });
             }
 
@@ -72,6 +123,7 @@ namespace CantinasWebApi.Controllers
                 Id = Produto.Id,
                 Nome = Produto.Nome,
                 Descricao = Produto.Descricao,
+                idOwner = Produto.idOwner,
             };
             
             return Ok(dtoProduto);
@@ -89,6 +141,7 @@ namespace CantinasWebApi.Controllers
                     Id = produto.Id,
                     Nome = produto.Nome,
                     Descricao = produto.Descricao,
+                    idOwner = produto.idOwner,
                 });
             }
 
