@@ -14,7 +14,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { getUser, logout } from '../../../api/userService';
 import { EditUserModal } from '../../modals/EditUserModal';
-import { defaultUserIcon } from '../../../api/defaultUserIcon';
+import { defaultUserIcon } from '../../../assets/defaultUserIcon';
 
 export const UserDropdownButton = () => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -51,7 +51,7 @@ export const UserDropdownButton = () => {
     return (
         <>
             <Avatar
-                src={defaultUserIcon}
+                src={currentUser?.photo ?? defaultUserIcon}
                 onClick={handleClick}
                 sx={{
                     cursor: 'pointer'
@@ -144,7 +144,7 @@ export const UserDropdownButton = () => {
 
             <EditUserModal
                 open={editModalOpen}
-                onClose={() => setEditModalOpen(false)}
+                setOpen={setEditModalOpen}
                 user={currentUser}
             />
         </>

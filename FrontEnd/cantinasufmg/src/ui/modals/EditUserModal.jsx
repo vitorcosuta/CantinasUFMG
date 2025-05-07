@@ -7,11 +7,14 @@ import {
     Button,
     Divider,
     Alert,
+    Avatar
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { CommonFormInput } from '../components/common/CommonFormInput';
 import { CommonPasswordFormInput } from '../components/common/CommonPasswordFormInput';
 import { setUser, updateUser } from '../../api/userService';
+import { defaultUserIcon } from '../../assets/defaultUserIcon';
+import { CommonImgUploadButton } from '../components/common/CommonImgUploadButton';
 
 const modalStyle = {
     position: 'absolute',
@@ -26,9 +29,10 @@ const modalStyle = {
     boxShadow: 24,
 };
 
-export const EditUserModal = ({ open, onClose, user }) => {
+export const EditUserModal = ({ open, setOpen, user }) => {
     const [username, setUsername] = React.useState(user?.username || '');
     const [email, setEmail] = React.useState(user?.email || '');
+    const [photo, setPhoto] = React.useState(user?.photo || defaultUserIcon);
     const [currentPassword, setCurrentPassword] = React.useState('');
     const [newPassword, setNewPassword] = React.useState('');
     const [submitAttempted, setSubmitAttempted] = React.useState(false);
@@ -45,7 +49,10 @@ export const EditUserModal = ({ open, onClose, user }) => {
             newUsername: username !== user.username ? username : null,
             password: currentPassword,
             newPassword: newPassword !== '' ? newPassword : null,
+            photo: photo
         };
+
+        console.log(userToUpdate);
 
         try {
             const response = await updateUser(userToUpdate);
@@ -64,6 +71,13 @@ export const EditUserModal = ({ open, onClose, user }) => {
         }
     };
 
+    const handleClose = (event, reason) => {
+        if (reason !== 'backdropClick'){
+            setPhoto(user?.photo || defaultUserIcon);
+            setOpen(false);
+        }
+    };
+
     React.useEffect(() => {
         if (open) {
             setUsername(user?.username || '');
@@ -79,11 +93,7 @@ export const EditUserModal = ({ open, onClose, user }) => {
     return (
         <Modal
             open={open}
-            onClose={(event, reason) => {
-                if (reason !== 'backdropClick') {
-                    onClose();
-                }
-            }}
+            onClose={handleClose}
         >
             <Box sx={modalStyle}>
                 <Box
@@ -98,7 +108,7 @@ export const EditUserModal = ({ open, onClose, user }) => {
                     <Typography variant="h6" fontWeight="bold">
                         Editar Usuário
                     </Typography>
-                    <IconButton onClick={onClose}>
+                    <IconButton onClick={handleClose}>
                         <CloseIcon />
                     </IconButton>
                 </Box>
@@ -123,6 +133,16 @@ export const EditUserModal = ({ open, onClose, user }) => {
                                 mt: 2,
                             }}
                         >
+                            <Avatar
+                                src={photo}
+                                alt={username}
+                                sx={{ width: '150px', height: '150px', margin: 'auto' }}
+                            />
+
+                            <CommonImgUploadButton setPhoto={setPhoto}>
+                                Carregar imagem de perfil
+                            </CommonImgUploadButton>
+
                             <CommonFormInput
                                 value={username}
                                 label="Nome"
@@ -180,7 +200,7 @@ export const EditUserModal = ({ open, onClose, user }) => {
                         }}
                     >
                         <Button
-                            onClick={onClose}
+                            onClick={handleClose}
                             sx={{
                                 color: '#D84040',
                             }}
