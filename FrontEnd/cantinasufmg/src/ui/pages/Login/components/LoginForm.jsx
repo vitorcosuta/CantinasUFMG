@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
-import { signInUser } from '../../../../api/userService';
+import { setUser, signInUser } from '../../../../api/userService';
 import { CommonFormInput } from '../../../components/common/CommonFormInput';
 import { CommonPasswordFormInput } from '../../../components/common/CommonPasswordFormInput';
 import { ROUTES } from '../../../../routes/Routes';
@@ -26,7 +26,7 @@ export const LoginForm = () => {
             const response = await signInUser({ email, password });
             const user = response.data;
 
-            localStorage.setItem('user', JSON.stringify(user));
+            setUser(user);
 
             setTimeout(() => {
                 setLoading(false);

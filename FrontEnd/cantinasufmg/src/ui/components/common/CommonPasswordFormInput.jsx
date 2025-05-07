@@ -10,6 +10,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 
 export const CommonPasswordFormInput = ({
     value,
+    label = 'Senha',
     onChange,
     error,
     helperText,
@@ -22,9 +23,8 @@ export const CommonPasswordFormInput = ({
 
     return (
         <FormControl variant="outlined" fullWidth error={error}>
-            <InputLabel>Senha</InputLabel>
+            <InputLabel>{label}</InputLabel>
             <OutlinedInput
-                id="senha"
                 type={showPassword ? 'text' : 'password'}
                 value={value}
                 onChange={onChange}
@@ -45,7 +45,7 @@ export const CommonPasswordFormInput = ({
                         </IconButton>
                     </InputAdornment>
                 }
-                label="Senha"
+                label={label}
             />
             {helperText && <FormHelperText>{helperText}</FormHelperText>}
         </FormControl>

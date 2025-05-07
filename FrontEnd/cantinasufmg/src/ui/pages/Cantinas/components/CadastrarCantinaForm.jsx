@@ -97,7 +97,7 @@ export const CadastrarCantinaForm = () => {
                 flexDirection: 'column',
                 gap: 2,
                 width: '100%',
-                maxWidth: 450,
+                maxWidth: 550,
                 maxHeight: '100vh',
                 p: 3,
                 boxSizing: 'border-box',

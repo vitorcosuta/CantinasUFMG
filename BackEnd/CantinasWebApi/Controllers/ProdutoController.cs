@@ -96,12 +96,20 @@ namespace CantinasWebApi.Controllers
             var dtoProdutos = new List<dtoProduto>();
             foreach (var produto in Produtos)
             {
+                var user = await _context.Users.FindAsync(produto.idOwner);
+
                 dtoProdutos.Add(new dtoProduto()
                 {
                     Id = produto.Id,
                     Nome = produto.Nome,
                     Descricao = produto.Descricao,
                     idOwner = produto.idOwner,
+                    Owner = user == null ? null : new dtoUser
+                    {
+                        Id = user.Id,
+                        Username = user.Username,
+                        Email = user.Email
+                    }
                 });
             }
 

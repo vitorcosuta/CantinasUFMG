@@ -9,6 +9,7 @@ export const CommonFormInput = ({
     onChange,
     error,
     helperText,
+    disabled = false,
 }) => {
     return (
         <FormControl sx={{ flex: 1, minWidth: 0 }}>
@@ -20,6 +21,7 @@ export const CommonFormInput = ({
                 variant="outlined"
                 error={error}
                 helperText={helperText}
+                disabled={disabled}
             />
         </FormControl>
     );

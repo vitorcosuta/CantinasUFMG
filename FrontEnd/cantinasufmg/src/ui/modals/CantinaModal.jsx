@@ -90,18 +90,6 @@ export const CantinaModal = ({ open, onClose, cantina }) => {
                             ))}
                         </Box>
                     </Box>
-
-                    <Box
-                        sx={{
-                            borderTop: '1px solid #ddd',
-                            pt: 2,
-                            textAlign: 'right',
-                        }}
-                    >
-                        <Typography variant="body2" color="textSecondary">
-                            Avaliação
-                        </Typography>
-                    </Box>
                 </Box>
             </Box>
         </Modal>

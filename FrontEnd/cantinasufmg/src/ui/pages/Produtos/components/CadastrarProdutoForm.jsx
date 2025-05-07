@@ -8,6 +8,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { createProduto } from '../../../../api/produtoService';
 import { CommonFormInput } from '../../../components/common/CommonFormInput';
 import { ROUTES } from '../../../../routes/Routes';
+import { getUser } from '../../../../api/userService';
 
 export const CadastrarProdutoForm = () => {
     const navigate = useNavigate();
@@ -16,6 +17,8 @@ export const CadastrarProdutoForm = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+
+    const user = getUser();
 
     const [errors, setErrors] = useState({
         nome: false,
@@ -45,7 +48,7 @@ export const CadastrarProdutoForm = () => {
         setLoading(true);
 
         try {
-            await createProduto({ nome, descricao });
+            await createProduto({ nome, descricao, idOwner: user.id });
             setSuccessMessage('Produto cadastrado com sucesso!');
             setTimeout(() => {
                 setLoading(false);

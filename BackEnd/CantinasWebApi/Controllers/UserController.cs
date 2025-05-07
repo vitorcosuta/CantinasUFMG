@@ -67,35 +67,40 @@ namespace CantinasWebApi.Controllers
             });
         }
 
-        [HttpPost("UpdateUser")]
-        public async Task<ActionResult<dtoUser>> UpdateUser(User user)
+        [HttpPut]
+        public async Task<ActionResult<dtoUser>> UpdateUser(dtoUpdateUser data)
         {
-            var User = await _context.Users.FindAsync(user.Id);
+            var user = await _context.Users.FindAsync(data.Id);
 
-            if (User == default)
+            if (user == null)
             {
-                return StatusCode(403);
+                return NotFound("Usuário não encontrado.");
             }
 
-            if(user.Email != User.Email)
+            if (user.Password != data.Password)
             {
-                return BadRequest("Não é possível alterar o e-mail.");
+                return StatusCode(403, "Senha atual incorreta.");
             }
 
-            User.Username = user.Username;
-            User.Password = user.Password;
-            User.IsAdmin = user.IsAdmin;
-            User.Photo = user.Photo;
+            if (!string.IsNullOrWhiteSpace(data.NewUsername))
+            {
+                user.Username = data.NewUsername;
+            }
+
+            if (!string.IsNullOrWhiteSpace(data.NewPassword))
+            {
+                user.Password = data.NewPassword;
+            }
 
             await _context.SaveChangesAsync();
 
-            return Ok(new dtoUser()
+            return Ok(new dtoUser
             {
-                Id = User.Id,
-                Email = User.Email,
-                Username = User.Username,
-                IsAdmin = User.IsAdmin,
-                Photo = User.Photo,
+                Id = user.Id,
+                Email = user.Email,
+                Username = user.Username,
+                IsAdmin = user.IsAdmin,
+                Photo = user.Photo,
             });
         }
 
